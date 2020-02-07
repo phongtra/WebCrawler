@@ -1,0 +1,18 @@
+using System;
+using FluentValidation;
+using Content.Domain.Models;
+
+namespace Content.Domain.Validation
+{
+    public partial class PageCreateModelValidator
+        : AbstractValidator<PageCreateModel>
+    {
+        public PageCreateModelValidator()
+        {
+            #region Generated Constructor
+            RuleFor(p => p.Url).NotEmpty();
+            #endregion
+        }
+
+    }
+}
