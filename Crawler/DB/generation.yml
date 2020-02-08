@@ -1,10 +1,10 @@
 project:
   namespace: '{Database.Name}'
-  directory: D:\repos\WebCrawlerPrj\Crawler
+  directory: D:\WebCrawlerPrj\Crawler
 database:
   name: 
   provider: Sqlite
-  connectionString: 'Data Source=D:\repos\WebCrawlerPrj\Crawler\DB\content.db;'
+  connectionString: 'Data Source=D:\WebCrawlerPrj\Crawler\DB\content.db;'
   connectionName: ConnectionStrings:Generator
   userSecretsId: f094a504-c5c8-408d-8e78-b7435293c6f7
   tableNaming: Singular

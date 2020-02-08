@@ -12,6 +12,8 @@ namespace Content.Data
         }
 
         #region Generated Properties
+        public virtual DbSet<Content.Data.Entities.CrawledLinks> CrawledLinks { get; set; }
+
         public virtual DbSet<Content.Data.Entities.Page> Pages { get; set; }
 
         #endregion
@@ -19,6 +21,7 @@ namespace Content.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region Generated Configuration
+            modelBuilder.ApplyConfiguration(new Content.Data.Mapping.CrawledLinksMap());
             modelBuilder.ApplyConfiguration(new Content.Data.Mapping.PageMap());
             #endregion
         }
