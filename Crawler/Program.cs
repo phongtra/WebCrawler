@@ -25,9 +25,14 @@ namespace Crawler
             var linkConcurrentQueue = new ConcurrentQueue<string>();
             //Download chromium browser revision package
             await new BrowserFetcher().DownloadAsync(ChromiumRevision);
+<<<<<<< Updated upstream
             using var browser = await Puppeteer.LaunchAsync(new LaunchOptions
             {
                 // Headless = true
+=======
+            string pageContent;
+            using (var browser = await Puppeteer.LaunchAsync(new LaunchOptions { // Headless = true
+>>>>>>> Stashed changes
                 Headless = false
             });
             var url = "https://vnexpress.net/";
@@ -72,6 +77,7 @@ namespace Crawler
         //     ExtractArticlePage(context, articlePageContent);
         // }
 
+<<<<<<< Updated upstream
         // private static void ExtractArticlePage(IBrowsingContext context, string articlePageContent)
         // {
         //     var parser = context.GetService<IHtmlParser>();
@@ -102,6 +108,13 @@ namespace Crawler
         //         Console.WriteLine(articlePageImageLink);
         //     }
         // }
+=======
+                Console.WriteLine("Press enter to close");
+                Console.ReadLine();
+
+                //Close headless browser, all pages will be closed here.
+                await browser.CloseAsync();
+>>>>>>> Stashed changes
 
         private static async void ExtractKinhDoanhPage(string kinhDoanhPageContent, string selector, Page page, ConcurrentQueue<string> linkConcurrentQueue, Browser browser)
         {
