@@ -119,7 +119,7 @@ namespace Crawler
                 var options = optionsBuilder
                     .UseSqlite("Data Source=D:\\WebCrawlerPrj\\Crawler\\DB\\content.db;", providerOptions => providerOptions.CommandTimeout(60));
                 await using var _context = new ContentContext(options.Options);
-                var crawledLinkModel = CreateCrawledLinksModel(link, DateTime.Now.ToString());
+                var crawledLinkModel = CreateCrawledLinksModel(link);
                 var crawledLinkEntity = CrawledLinksProfile.MapCreateModelToEntity(crawledLinkModel);
                 await _context.CrawledLinks.AddAsync(crawledLinkEntity);
                 await _context.SaveChangesAsync();
@@ -157,11 +157,11 @@ namespace Crawler
             page.Content = pageContent;
             return page;
         }
-        private static CrawledLinksCreateModel CreateCrawledLinksModel(string url, string retrieved)
+        private static CrawledLinksCreateModel CreateCrawledLinksModel(string url)
         {
             var crawledLink = new CrawledLinksCreateModel();
             crawledLink.Url = url;
-            crawledLink.Retrieved = retrieved;
+            crawledLink.Retrieved = null;
             crawledLink.Updated = null;
             return crawledLink;
         }
