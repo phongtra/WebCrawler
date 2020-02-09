@@ -18,9 +18,13 @@ namespace Content.Data.Entities
 
         public string Content { get; set; }
 
+        public long CrawledLinkId { get; set; }
+
         #endregion
 
         #region Generated Relationships
+        public virtual CrawledLinks CrawledLinkCrawledLinks { get; set; }
+
         #endregion
 
     }

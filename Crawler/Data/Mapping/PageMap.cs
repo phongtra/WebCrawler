@@ -31,7 +31,17 @@ namespace Content.Data.Mapping
                 .HasColumnName("Content")
                 .HasColumnType("TEXT");
 
+            builder.Property(t => t.CrawledLinkId)
+                .IsRequired()
+                .HasColumnName("CrawledLinkId")
+                .HasColumnType("INTEGER");
+
             // relationships
+            builder.HasOne(t => t.CrawledLinkCrawledLinks)
+                .WithMany(t => t.CrawledLinkPages)
+                .HasForeignKey(d => d.CrawledLinkId)
+                .HasConstraintName("2");
+
             #endregion
         }
 
@@ -42,6 +52,7 @@ namespace Content.Data.Mapping
         public const string ColumnId = "ID";
         public const string ColumnUrl = "Url";
         public const string ColumnContent = "Content";
+        public const string ColumnCrawledLinkId = "CrawledLinkId";
         #endregion
     }
 }

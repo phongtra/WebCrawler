@@ -11,6 +11,7 @@ namespace Content.Domain.Validation
         {
             #region Generated Constructor
             RuleFor(p => p.Url).NotEmpty();
+            RuleFor(p => p.Title).NotEmpty();
             #endregion
         }
 

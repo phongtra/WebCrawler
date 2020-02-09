@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crawler", "Crawler\Crawler.csproj", "{2EE84AF0-2ABA-41D6-9EBA-6E2947AB7A17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crawler", "Crawler\Crawler.csproj", "{2EE84AF0-2ABA-41D6-9EBA-6E2947AB7A17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrawlerDisplayAPI", "CrawlerDisplayAPI\CrawlerDisplayAPI.csproj", "{0C8CCAEC-995F-4815-9B39-EB10CF89A0BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{2EE84AF0-2ABA-41D6-9EBA-6E2947AB7A17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EE84AF0-2ABA-41D6-9EBA-6E2947AB7A17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EE84AF0-2ABA-41D6-9EBA-6E2947AB7A17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C8CCAEC-995F-4815-9B39-EB10CF89A0BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C8CCAEC-995F-4815-9B39-EB10CF89A0BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C8CCAEC-995F-4815-9B39-EB10CF89A0BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C8CCAEC-995F-4815-9B39-EB10CF89A0BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

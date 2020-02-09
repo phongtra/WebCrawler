@@ -13,7 +13,10 @@ namespace Crawler.Domain.Mapping
                 Id = crawledLinks.Id,
                 Url = crawledLinks.Url,
                 Retrieved = crawledLinks.Retrieved,
-                Updated = crawledLinks.Updated
+                Updated = crawledLinks.Updated,
+                Title = crawledLinks.Title,
+                ImageLink = crawledLinks.ImageLink,
+                Description = crawledLinks.Description
             };
         }
         public static Content.Data.Entities.CrawledLinks MapCreateModelToEntity(Content.Domain.Models.CrawledLinksCreateModel crawledLinks)
@@ -22,7 +25,10 @@ namespace Crawler.Domain.Mapping
             {
                 Url = crawledLinks.Url,
                 Retrieved = crawledLinks.Retrieved,
-                Updated = crawledLinks.Updated
+                Updated = crawledLinks.Updated,
+                Title = crawledLinks.Title,
+                ImageLink = crawledLinks.ImageLink,
+                Description = crawledLinks.Description
             };
         }
         public static Content.Data.Entities.CrawledLinks MapUpdateModelToEntity(Content.Domain.Models.CrawledLinksUpdateModel crawledLinks)
@@ -32,7 +38,10 @@ namespace Crawler.Domain.Mapping
                 Id = crawledLinks.Id,
                 Url = crawledLinks.Url,
                 Retrieved = crawledLinks.Retrieved,
-                Updated = crawledLinks.Updated
+                Updated = crawledLinks.Updated,
+                Title = crawledLinks.Title,
+                ImageLink = crawledLinks.ImageLink,
+                Description = crawledLinks.Description
             };
         }
 

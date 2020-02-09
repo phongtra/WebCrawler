@@ -35,6 +35,19 @@ namespace Content.Data.Mapping
                 .HasColumnName("Updated")
                 .HasColumnType("TEXT");
 
+            builder.Property(t => t.Title)
+                .IsRequired()
+                .HasColumnName("Title")
+                .HasColumnType("TEXT");
+
+            builder.Property(t => t.ImageLink)
+                .HasColumnName("ImageLink")
+                .HasColumnType("TEXT");
+
+            builder.Property(t => t.Description)
+                .HasColumnName("Description")
+                .HasColumnType("TEXT");
+
             // relationships
             #endregion
         }
@@ -47,6 +60,9 @@ namespace Content.Data.Mapping
         public const string ColumnUrl = "Url";
         public const string ColumnRetrieved = "Retrieved";
         public const string ColumnUpdated = "Updated";
+        public const string ColumnTitle = "Title";
+        public const string ColumnImageLink = "ImageLink";
+        public const string ColumnDescription = "Description";
         #endregion
     }
 }

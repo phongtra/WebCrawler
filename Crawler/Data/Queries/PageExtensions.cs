@@ -9,6 +9,11 @@ namespace Content.Data.Queries
     public static partial class PageExtensions
     {
         #region Generated Extensions
+        public static IQueryable<Content.Data.Entities.Page> ByCrawledLinkId(this IQueryable<Content.Data.Entities.Page> queryable, long crawledLinkId)
+        {
+            return queryable.Where(q => q.CrawledLinkId == crawledLinkId);
+        }
+
         public static Content.Data.Entities.Page GetByKey(this IQueryable<Content.Data.Entities.Page> queryable, long id)
         {
             if (queryable is DbSet<Content.Data.Entities.Page> dbSet)

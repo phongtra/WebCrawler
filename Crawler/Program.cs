@@ -8,6 +8,7 @@ using AngleSharp.Dom;
 using AngleSharp.Html.Dom;
 using AngleSharp.Html.Parser;
 using Content.Data;
+using Content.Domain.Mapping;
 using Content.Domain.Models;
 using Crawler.Domain.Mapping;
 using Microsoft.EntityFrameworkCore;
@@ -39,69 +40,23 @@ namespace Crawler
             var kinhDoanhPageContent = await GetPageContent(page, page.Url, 1024, 768);
             ExtractKinhDoanhPage(kinhDoanhPageContent, ".container .sidebar_1 .list_news", page, linkConcurrentQueue, browser);
             var count = 0;
-            while (linkConcurrentQueue.Count > 0 && count < 5)
+            while (linkConcurrentQueue.Count > 0 && count < 1)
             {
-                if (linkConcurrentQueue.TryDequeue(out var link))
-                {
-                    var page1 = await browser.NewPageAsync();
-                    await page1.GoToAsync(link);
-                    var page1Content = await GetPageContent(page1, link, 1024, 768);
-                     ExtractKinhDoanhPage(page1Content, ".container .sidebar_1 .list_news", page1, linkConcurrentQueue, browser);
-                     count++;
-                     await page1.CloseAsync();
-                }
+                if (!linkConcurrentQueue.TryDequeue(out var link)) continue;
+                var page1 = await browser.NewPageAsync();
+                await page1.GoToAsync(link);
+                var page1Content = await GetPageContent(page1, link, 1024, 768);
+                ExtractKinhDoanhPage(page1Content, ".container .sidebar_1 .list_news", page1, linkConcurrentQueue, browser);
+                count++;
+                await page1.CloseAsync();
             }
-            // while (linkConcurrentQueue.Count > 0)
-            // {
-            //     if (!linkConcurrentQueue.TryDequeue(out var link)) continue;
-            //     var childPage = await browser.NewPageAsync();
-            //     // await OpenArticlePage(childPage, link);
-            //     await childPage.CloseAsync();
-            // }
-                
             // var pageModel = CreatePageModel(url, mainPageContent);
             await page.CloseAsync();
             //Close headless browser, all pages will be closed here.
             await browser.CloseAsync();
+            await ContentCrawler.Crawler();
+
         }
-
-        // private static async Task OpenArticlePage(Page childPage, string link)
-        // {
-        //     var articlePageContent = await GetPageContent(childPage, link, 1024, 768);
-        //     var context = BrowsingContext.New(Configuration.Default);
-        //     ExtractArticlePage(context, articlePageContent);
-        // }
-
-        // private static void ExtractArticlePage(IBrowsingContext context, string articlePageContent)
-        // {
-        //     var parser = context.GetService<IHtmlParser>();
-        //     var document = parser.ParseDocument(articlePageContent);
-        //     var articlePageTitle = document.QuerySelector(".title_news_detail").InnerHtml;
-        //     var articlePageDescription = document.QuerySelector(".description").InnerHtml;
-        //     var paragraphs = document.QuerySelectorAll(".Normal");
-        //
-        //     Console.WriteLine(paragraphs.Length);
-        //     var articlePageParagraphs = paragraphs.Select(paragraph => paragraph.InnerHtml).ToList();
-        //
-        //     // var author = childParagraphs.ElementAt(childParagraphs.Count - 1);
-        //     // childParagraphs.RemoveAt(childParagraphs.Count - 1);
-        //     var articlePageImages =
-        //         document.QuerySelectorAll("table img");
-        //     var articlePageImageLinks =
-        //         articlePageImages.Select(childPageImage => childPageImage?.GetAttribute("src")).ToList();
-        //     Console.WriteLine(articlePageTitle);
-        //     Console.WriteLine(articlePageDescription);
-        //
-        //     foreach (var articlePageParagraph in articlePageParagraphs)
-        //     {
-        //         Console.WriteLine(articlePageParagraph);
-        //     }
-        //
-        //     foreach (var articlePageImageLink in articlePageImageLinks)
-        //     {
-        //         Console.WriteLine(articlePageImageLink);
-        //     }
-        // }
 
         private static async void ExtractKinhDoanhPage(string kinhDoanhPageContent, string selector, Page page, ConcurrentQueue<string> linkConcurrentQueue, Browser browser)
         {
@@ -111,18 +66,24 @@ namespace Crawler
             var articles = document.QuerySelectorAll(selector);
             foreach (var article in articles)
             {
+                var title = article.QuerySelector(".title_news a").InnerHtml;
+                var imageLink = article.QuerySelector("a img")?.GetAttribute("src");
+                var description = article.QuerySelector(".description a").InnerHtml;
                 var anchors = article.QuerySelectorAll("a");
                 
                 var link =  anchors[0].GetAttribute("href");
-                Console.WriteLine(link);
                 var optionsBuilder = new DbContextOptionsBuilder<ContentContext>();
                 var options = optionsBuilder
-                    .UseSqlite("Data Source=D:\\WebCrawlerPrj\\Crawler\\DB\\content.db;", providerOptions => providerOptions.CommandTimeout(60));
+                    .UseSqlite("Data Source=D:\\WebCrawlerPrj\\Crawler\\DB\\content.db;",
+                        providerOptions => providerOptions.CommandTimeout(60));
                 await using var _context = new ContentContext(options.Options);
-                var crawledLinkModel = CreateCrawledLinksModel(link);
+                var crawledLinkModel = CreateCrawledLinksModel(link, title, imageLink, description);
                 var crawledLinkEntity = CrawledLinksProfile.MapCreateModelToEntity(crawledLinkModel);
+                // var existedLink = await _context.CrawledLinks.FirstAsync(co => co.Url == link);
+                // if (existedLink != null) continue;
                 await _context.CrawledLinks.AddAsync(crawledLinkEntity);
                 await _context.SaveChangesAsync();
+
             }
 
             var paginationActive= document.QuerySelector(".pagination a.active");
@@ -132,7 +93,9 @@ namespace Crawler
 
 
 
-        }                                                                                                                                                                                                                                                                                                                                        
+        }
+
+       
 
         private static async Task Navigate(Page page, string element)
         {
@@ -150,19 +113,18 @@ namespace Crawler
             }
         }
 
-        private static PageCreateModel CreatePageModel(string url, string pageContent)
+       
+        private static CrawledLinksCreateModel CreateCrawledLinksModel(string url, string title, string imageLink, string description)
         {
-            var page = new PageCreateModel();
-            page.Url = url;
-            page.Content = pageContent;
-            return page;
-        }
-        private static CrawledLinksCreateModel CreateCrawledLinksModel(string url)
-        {
-            var crawledLink = new CrawledLinksCreateModel();
-            crawledLink.Url = url;
-            crawledLink.Retrieved = null;
-            crawledLink.Updated = null;
+            var crawledLink = new CrawledLinksCreateModel
+            {
+                Url = url,
+                Retrieved = null,
+                Updated = null,
+                Title = title,
+                ImageLink = imageLink,
+                Description = description
+            };
             return crawledLink;
         }
 

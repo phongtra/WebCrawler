@@ -12,6 +12,8 @@ namespace Content.Domain.Models
 
         public string Content { get; set; }
 
+        public long CrawledLinkId { get; set; }
+
         #endregion
 
     }

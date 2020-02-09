@@ -8,6 +8,8 @@ namespace Content.Data.Entities
         public CrawledLinks()
         {
             #region Generated Constructor
+            CrawledLinkPages = new HashSet<Page>();
+            
             #endregion
         }
 
@@ -20,9 +22,19 @@ namespace Content.Data.Entities
 
         public string Updated { get; set; }
 
+        public string Title { get; set; }
+
+        public string ImageLink { get; set; }
+
+        public string Description { get; set; }
+
         #endregion
 
         #region Generated Relationships
+        public virtual ICollection<Page> CrawledLinkPages { get; set; }
+
+        
+
         #endregion
 
     }

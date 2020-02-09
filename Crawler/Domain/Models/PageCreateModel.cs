@@ -9,6 +9,7 @@ namespace Content.Domain.Models
         public string Url { get; set; }
 
         public string Content { get; set; }
+        public long CrawledLinkId { get; set; }
 
         #endregion
 

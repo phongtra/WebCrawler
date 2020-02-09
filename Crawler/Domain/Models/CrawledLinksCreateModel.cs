@@ -12,6 +12,12 @@ namespace Content.Domain.Models
 
         public string Updated { get; set; }
 
+        public string Title { get; set; }
+
+        public string ImageLink { get; set; }
+
+        public string Description { get; set; }
+
         #endregion
 
     }

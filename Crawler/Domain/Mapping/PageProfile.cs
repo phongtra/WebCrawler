@@ -8,7 +8,8 @@ namespace Content.Domain.Mapping
             {
                 Id = pageModel.Id,
                 Url = pageModel.Url,
-                Content = pageModel.Content
+                Content = pageModel.Content,
+                CrawledLinkId = pageModel.CrawledLinkId
             };
         }
 
@@ -17,7 +18,8 @@ namespace Content.Domain.Mapping
             return new Data.Entities.Page()
             {
                 Url = pageModel.Url,
-                Content = pageModel.Content
+                Content = pageModel.Content,
+                CrawledLinkId = pageModel.CrawledLinkId
             };
         }
 
@@ -27,7 +29,8 @@ namespace Content.Domain.Mapping
             {
                 Id = pageModel.Id,
                 Url = pageModel.Url,
-                Content = pageModel.Content
+                Content = pageModel.Content,
+                CrawledLinkId = pageModel.CrawledLinkId
             };
         }
     }
