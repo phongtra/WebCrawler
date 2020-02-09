@@ -36,7 +36,7 @@ namespace Crawler
             var mainPageContent = await GetPageContent(page, url, 1024, 768);
             const string element = "//nav[@id='main_menu']/a[contains(., 'Kinh doanh')]";
             await Navigate(page, element);
-                
+
             var kinhDoanhPageContent = await GetPageContent(page, page.Url, 1024, 768);
             ExtractKinhDoanhPage(kinhDoanhPageContent, ".container .sidebar_1 .list_news", page, linkConcurrentQueue, browser);
             var count = 0;
@@ -70,8 +70,8 @@ namespace Crawler
                 var imageLink = article.QuerySelector("a img")?.GetAttribute("src");
                 var description = article.QuerySelector(".description a").InnerHtml;
                 var anchors = article.QuerySelectorAll("a");
-                
-                var link =  anchors[0].GetAttribute("href");
+
+                var link = anchors[0].GetAttribute("href");
                 var optionsBuilder = new DbContextOptionsBuilder<ContentContext>();
                 var options = optionsBuilder
                     .UseSqlite("Data Source=D:\\WebCrawlerPrj\\Crawler\\DB\\content.db;",
@@ -86,16 +86,16 @@ namespace Crawler
 
             }
 
-            var paginationActive= document.QuerySelector(".pagination a.active");
+            var paginationActive = document.QuerySelector(".pagination a.active");
             var pagginationLink1 = paginationActive.NextElementSibling.GetAttribute("href");
             linkConcurrentQueue.Enqueue(pagginationLink1);
-            
+
 
 
 
         }
 
-       
+
 
         private static async Task Navigate(Page page, string element)
         {
@@ -113,7 +113,7 @@ namespace Crawler
             }
         }
 
-       
+
         private static CrawledLinksCreateModel CreateCrawledLinksModel(string url, string title, string imageLink, string description)
         {
             var crawledLink = new CrawledLinksCreateModel
@@ -130,14 +130,14 @@ namespace Crawler
 
         private static async Task<string> GetPageContent(Page page, string url, int ViewPortWidth, int ViewPortHeight)
         {
-            
+
             await page.SetViewportAsync(new ViewPortOptions
             {
-                Width  = ViewPortWidth,
+                Width = ViewPortWidth,
                 Height = ViewPortHeight
             });
             await page.GoToAsync(url);
-            
+
             // var outputFile = "capture.jpg";
             //            await page.ScreenshotAsync(outputFile, new ScreenshotOptions {FullPage = true});
             var pageContent = await page.GetContentAsync();
