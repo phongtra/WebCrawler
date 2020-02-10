@@ -36,9 +36,9 @@
 //                 });
 //                 var page = await browser.NewPageAsync();
 //                 var pageContent = await GetPageContent(page, article.Url, 1024, 768);
-//                 var context = BrowsingContext.New(Configuration.Default);
-//                 var parser = context.GetService<IHtmlParser>();
-//                 var document = parser.ParseDocument(pageContent);
+                 // var context = BrowsingContext.New(Configuration.Default);
+                 // var parser = context.GetService<IHtmlParser>();
+                 // var document = parser.ParseDocument(pageContent);
 //                 var articleContent = document.QuerySelector(".sidebar_1").InnerHtml;
 //                 var articleModel = CreatePageModel(article.Url, articleContent, article.Id);
 //                 var articleEntity = PageProfile.MapCreateModelToEntity(articleModel);
