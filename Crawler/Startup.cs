@@ -48,7 +48,6 @@ namespace Crawler
                 })
                 .AddTransient<IWebContentExtractor, WebContentExtractor>()
                 .AddTransient<IPageRequester, PageRequester>()
-
                 //.AddTransient<IPageRequester, ChromiumPageRequester>()
                 .AddTransient<IPoliteWebCrawler, PoliteWebCrawler>(provider =>
                 {
