@@ -1,37 +1,44 @@
-namespace Content.Domain.Mapping
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Content.Data.Entities;
+using Content.Domain.Models;
+
+namespace Crawler.Domain.Mapping
 {
     public partial class PageProfile
     {
-        public static Data.Entities.Page MapReadModelToEntity(Models.PageReadModel pageModel)
+        public static Page MapReadModelToEntity(PageReadModel page)
         {
-            return new Data.Entities.Page()
+            var pag = new Page()
             {
-                Id = pageModel.Id,
-                Url = pageModel.Url,
-                Content = pageModel.Content,
-                CrawledLinkId = pageModel.CrawledLinkId
+                Id = page.Id,
+                Content = page.Content,
+                EpisodeLinkHash = page.EpisodeLinkHash,
+                Updated = page.Updated
             };
+            return pag;
         }
-
-        public static Data.Entities.Page MapCreateModelToEntity(Models.PageCreateModel pageModel)
+        public static Page MapCreateModelToEntity(PageCreateModel page)
         {
-            return new Data.Entities.Page()
+            var pag = new Page()
             {
-                Url = pageModel.Url,
-                Content = pageModel.Content,
-                CrawledLinkId = pageModel.CrawledLinkId
+                Content = page.Content,
+                EpisodeLinkHash = page.EpisodeLinkHash,
+                Updated = page.Updated
             };
+            return pag;
         }
-
-        public static Data.Entities.Page MapUpdateModelToEntity(Models.PageUpdateModel pageModel)
+        public static Page MapUpdateModelToEntity(PageUpdateModel page)
         {
-            return new Data.Entities.Page()
+            var pag = new Page()
             {
-                Id = pageModel.Id,
-                Url = pageModel.Url,
-                Content = pageModel.Content,
-                CrawledLinkId = pageModel.CrawledLinkId
+                Id = page.Id,
+                Content = page.Content,
+                EpisodeLinkHash = page.EpisodeLinkHash,
+                Updated = page.Updated
             };
+            return pag;
         }
     }
 }

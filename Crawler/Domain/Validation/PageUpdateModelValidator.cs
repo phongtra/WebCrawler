@@ -10,7 +10,8 @@ namespace Content.Domain.Validation
         public PageUpdateModelValidator()
         {
             #region Generated Constructor
-            RuleFor(p => p.Url).NotEmpty();
+            RuleFor(p => p.EpisodeLinkHash).NotEmpty();
+            RuleFor(p => p.Content).NotEmpty();
             #endregion
         }
 

@@ -6,10 +6,11 @@ namespace Content.Domain.Models
     public partial class PageCreateModel
     {
         #region Generated Properties
-        public string Url { get; set; }
+        public string EpisodeLinkHash { get; set; }
 
         public string Content { get; set; }
-        public long CrawledLinkId { get; set; }
+
+        public string Updated { get; set; }
 
         #endregion
 

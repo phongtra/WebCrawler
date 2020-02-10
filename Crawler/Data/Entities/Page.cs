@@ -12,19 +12,17 @@ namespace Content.Data.Entities
         }
 
         #region Generated Properties
-        public long Id { get; set; }
-
-        public string Url { get; set; }
+        public string EpisodeLinkHash { get; set; }
 
         public string Content { get; set; }
 
-        public long CrawledLinkId { get; set; }
+        public long Id { get; set; }
+
+        public string Updated { get; set; }
 
         #endregion
 
         #region Generated Relationships
-        public virtual CrawledLinks CrawledLinkCrawledLinks { get; set; }
-
         #endregion
 
     }

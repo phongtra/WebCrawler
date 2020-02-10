@@ -17,31 +17,26 @@ namespace Content.Data.Mapping
             builder.HasKey(t => t.Id);
 
             // properties
-            builder.Property(t => t.Id)
+            builder.Property(t => t.EpisodeLinkHash)
                 .IsRequired()
-                .HasColumnName("ID")
-                .HasColumnType("INTEGER");
-
-            builder.Property(t => t.Url)
-                .IsRequired()
-                .HasColumnName("Url")
+                .HasColumnName("EpisodeLinkHash")
                 .HasColumnType("TEXT");
 
             builder.Property(t => t.Content)
+                .IsRequired()
                 .HasColumnName("Content")
                 .HasColumnType("TEXT");
 
-            builder.Property(t => t.CrawledLinkId)
+            builder.Property(t => t.Id)
                 .IsRequired()
-                .HasColumnName("CrawledLinkId")
+                .HasColumnName("Id")
                 .HasColumnType("INTEGER");
 
-            // relationships
-            builder.HasOne(t => t.CrawledLinkCrawledLinks)
-                .WithMany(t => t.CrawledLinkPages)
-                .HasForeignKey(d => d.CrawledLinkId)
-                .HasConstraintName("2");
+            builder.Property(t => t.Updated)
+                .HasColumnName("Updated")
+                .HasColumnType("TEXT");
 
+            // relationships
             #endregion
         }
 
@@ -49,10 +44,10 @@ namespace Content.Data.Mapping
         public const string TableSchema = "";
         public const string TableName = "Page";
 
-        public const string ColumnId = "ID";
-        public const string ColumnUrl = "Url";
+        public const string ColumnEpisodeLinkHash = "EpisodeLinkHash";
         public const string ColumnContent = "Content";
-        public const string ColumnCrawledLinkId = "CrawledLinkId";
+        public const string ColumnId = "Id";
+        public const string ColumnUpdated = "Updated";
         #endregion
     }
 }

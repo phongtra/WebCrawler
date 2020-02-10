@@ -3,7 +3,10 @@ using Abot2.Core;
 using Abot2.Crawler;
 using Abot2.Poco;
 using Abot2.Util;
+using Content.Data;
 using Crawler.Crawler;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PuppeteerSharp;
@@ -25,8 +28,12 @@ namespace Crawler
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton(Configuration);
-
+            
             //Custom code
+            services.AddDbContext<ContentContext>(options =>
+            {
+                options.UseSqlite(@"Data Source=C:\\Users\\phongth\\Desktop\\WebCrawlerPrj\\Crawler\\DB\\content.db;");
+            });
             services
                 .AddTransient<LaunchOptions>(provider => new LaunchOptions
                 {
@@ -36,11 +43,12 @@ namespace Crawler
 
             services.AddTransient<CrawlConfiguration>(provider => new CrawlConfiguration
                 {
-                    MaxPagesToCrawl                    = 10,  //Only crawl 10 pages
+                    MaxPagesToCrawl                    = 5,  //Only crawl 10 pages
                     MinCrawlDelayPerDomainMilliSeconds = 3000 //Wait this many millisecs between requests
                 })
                 .AddTransient<IWebContentExtractor, WebContentExtractor>()
                 .AddTransient<IPageRequester, PageRequester>()
+
                 //.AddTransient<IPageRequester, ChromiumPageRequester>()
                 .AddTransient<IPoliteWebCrawler, PoliteWebCrawler>(provider =>
                 {
