@@ -13,6 +13,7 @@ namespace Crawler
     /// </summary>
     class Program
     {
+        //https://stackoverflow.com/questions/41407221/startup-cs-in-a-self-hosted-net-core-console-application
         public static IServiceProvider ServiceProvider { get; private set; }
         static async Task Main(string[] args)
         {
