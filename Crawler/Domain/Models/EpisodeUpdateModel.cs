@@ -6,7 +6,7 @@ namespace Content.Domain.Models
     public partial class EpisodeUpdateModel
     {
         #region Generated Properties
-        public string UrlHash { get; set; }
+        public string TitleNo { get; set; }
 
         public string EpisodeName { get; set; }
 

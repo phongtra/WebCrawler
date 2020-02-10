@@ -16,16 +16,16 @@ namespace Crawler
         public static async Task DemoSimpleCrawler()
         {
             var crawler = Program.ServiceProvider.GetService<IPoliteWebCrawler>();
-            crawler.ShouldCrawlPageDecisionMaker += (crawl, context) =>
-            {
-                if (genres.Any(genre => crawl.Uri.AbsoluteUri.Contains(genre) ||
-                                        crawl.Uri.AbsoluteUri == "https://www.webtoons.com/en/dailySchedule"))
-                {
-                    return new CrawlDecision { Allow = true };
-                }
-
-                return new CrawlDecision { Allow = false, Reason = "Invalid site" };
-            };
+            // crawler.ShouldCrawlPageDecisionMaker += (crawl, context) =>
+            // {
+            //     if (genres.Any(genre => crawl.Uri.AbsoluteUri.Contains(genre) ||
+            //                             crawl.Uri.AbsoluteUri == "https://www.webtoons.com/en/dailySchedule"))
+            //     {
+            //         return new CrawlDecision { Allow = true };
+            //     }
+            //
+            //     return new CrawlDecision { Allow = false, Reason = "Invalid site" };
+            // };
 
             crawler.PageCrawlCompleted += Crawler_PageCrawlCompleted; ; //Several events available...
 

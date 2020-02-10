@@ -17,9 +17,9 @@ namespace Content.Data.Mapping
             builder.HasKey(t => t.EpisodeLinkHash);
 
             // properties
-            builder.Property(t => t.UrlHash)
+            builder.Property(t => t.TitleNo)
                 .IsRequired()
-                .HasColumnName("UrlHash")
+                .HasColumnName("TitleNo")
                 .HasColumnType("TEXT");
 
             builder.Property(t => t.EpisodeName)
@@ -64,7 +64,7 @@ namespace Content.Data.Mapping
         public const string TableSchema = "";
         public const string TableName = "Episode";
 
-        public const string ColumnUrlHash = "UrlHash";
+        public const string ColumnTitleNo = "TitleNo";
         public const string ColumnEpisodeName = "EpisodeName";
         public const string ColumnEpisodeThumbnail = "EpisodeThumbnail";
         public const string ColumnEpisodeDate = "EpisodeDate";

@@ -10,7 +10,7 @@ namespace Content.Domain.Validation
         public EpisodeCreateModelValidator()
         {
             #region Generated Constructor
-            RuleFor(p => p.UrlHash).NotEmpty();
+            RuleFor(p => p.TitleNo).NotEmpty();
             RuleFor(p => p.EpisodeName).NotEmpty();
             RuleFor(p => p.EpisodeThumbnail).NotEmpty();
             RuleFor(p => p.EpisodeDate).NotEmpty();

@@ -12,7 +12,7 @@ namespace Content.Data.Entities
         }
 
         #region Generated Properties
-        public string UrlHash { get; set; }
+        public string TitleNo { get; set; }
 
         public string EpisodeName { get; set; }
 

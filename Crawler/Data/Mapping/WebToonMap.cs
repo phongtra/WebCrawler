@@ -14,7 +14,7 @@ namespace Content.Data.Mapping
             builder.ToTable("WebToon");
 
             // key
-            builder.HasKey(t => t.UriHash);
+            builder.HasKey(t => t.TitleNo);
 
             // properties
             builder.Property(t => t.Uri)
@@ -22,9 +22,9 @@ namespace Content.Data.Mapping
                 .HasColumnName("Uri")
                 .HasColumnType("TEXT");
 
-            builder.Property(t => t.UriHash)
+            builder.Property(t => t.TitleNo)
                 .IsRequired()
-                .HasColumnName("UriHash")
+                .HasColumnName("TitleNo")
                 .HasColumnType("TEXT");
 
             builder.Property(t => t.ImageLink)
@@ -52,6 +52,7 @@ namespace Content.Data.Mapping
                 .HasColumnType("TEXT");
 
             builder.Property(t => t.ContentHash)
+                .IsRequired()
                 .HasColumnName("ContentHash")
                 .HasColumnType("TEXT");
 
@@ -64,7 +65,7 @@ namespace Content.Data.Mapping
         public const string TableName = "WebToon";
 
         public const string ColumnUri = "Uri";
-        public const string ColumnUriHash = "UriHash";
+        public const string ColumnTitleNo = "TitleNo";
         public const string ColumnImageLink = "ImageLink";
         public const string ColumnGenre = "Genre";
         public const string ColumnSubject = "Subject";

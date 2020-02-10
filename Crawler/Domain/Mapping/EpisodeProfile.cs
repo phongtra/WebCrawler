@@ -12,7 +12,7 @@ namespace Crawler.Domain.Mapping
         {
             var ep = new Episode()
             {
-                UrlHash = episode.UrlHash,
+                TitleNo = episode.TitleNo,
                 EpisodeName = episode.EpisodeName,
                 EpisodeThumbnail = episode.EpisodeThumbnail,
                 EpisodeDate = episode.EpisodeDate,
@@ -27,7 +27,7 @@ namespace Crawler.Domain.Mapping
         {
             var ep = new Episode()
             {
-                UrlHash = episode.UrlHash,
+                TitleNo = episode.TitleNo,
                 EpisodeName = episode.EpisodeName,
                 EpisodeThumbnail = episode.EpisodeThumbnail,
                 EpisodeDate = episode.EpisodeDate,
@@ -42,7 +42,7 @@ namespace Crawler.Domain.Mapping
         {
             var ep = new Episode()
             {
-                UrlHash = episode.UrlHash,
+                TitleNo = episode.TitleNo,
                 EpisodeName = episode.EpisodeName,
                 EpisodeThumbnail = episode.EpisodeThumbnail,
                 EpisodeDate = episode.EpisodeDate,

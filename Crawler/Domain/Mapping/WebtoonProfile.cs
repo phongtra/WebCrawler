@@ -13,7 +13,7 @@ namespace Crawler.Domain.Mapping
             var web = new WebToon
             {
                 Uri = webToon.Uri,
-                UriHash = webToon.UriHash,
+                TitleNo = webToon.TitleNo,
                 Subject = webToon.Subject,
                 Author = webToon.Author,
                 Genre = webToon.Genre,
@@ -28,7 +28,7 @@ namespace Crawler.Domain.Mapping
             var web = new WebToon
             {
                 Uri = webToon.Uri,
-                UriHash = webToon.UriHash,
+                TitleNo = webToon.TitleNo,
                 Subject = webToon.Subject,
                 Author = webToon.Author,
                 Genre = webToon.Genre,
@@ -43,7 +43,7 @@ namespace Crawler.Domain.Mapping
             var web = new WebToon
             {
                 Uri = webToon.Uri,
-                UriHash = webToon.UriHash,
+                TitleNo = webToon.TitleNo,
                 Subject = webToon.Subject,
                 Author = webToon.Author,
                 Genre = webToon.Genre,

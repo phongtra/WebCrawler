@@ -30,10 +30,10 @@ namespace Crawler
             services.AddSingleton(Configuration);
             
             //Custom code
-            services.AddDbContext<ContentContext>(options =>
-            {
-                options.UseSqlite(@"Data Source=C:\\Users\\phongth\\Desktop\\WebCrawlerPrj\\Crawler\\DB\\content.db;");
-            });
+            // services.AddDbContext<ContentContext>(options =>
+            // {
+            //     options.UseSqlite(@"Data Source=D:\\WebCrawlerPrj\\Crawler\\DB\\content.db;");
+            // });
             services
                 .AddTransient<LaunchOptions>(provider => new LaunchOptions
                 {
@@ -43,7 +43,7 @@ namespace Crawler
 
             services.AddTransient<CrawlConfiguration>(provider => new CrawlConfiguration
                 {
-                    MaxPagesToCrawl                    = 5,  //Only crawl 10 pages
+                    MaxPagesToCrawl                    = 10,  //Only crawl 10 pages
                     MinCrawlDelayPerDomainMilliSeconds = 3000 //Wait this many millisecs between requests
                 })
                 .AddTransient<IWebContentExtractor, WebContentExtractor>()

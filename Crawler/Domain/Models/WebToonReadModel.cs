@@ -8,7 +8,7 @@ namespace Content.Domain.Models
         #region Generated Properties
         public string Uri { get; set; }
 
-        public string UriHash { get; set; }
+        public string TitleNo { get; set; }
 
         public string ImageLink { get; set; }
 
