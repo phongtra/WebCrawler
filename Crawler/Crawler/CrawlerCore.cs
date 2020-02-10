@@ -19,10 +19,10 @@ namespace Crawler
         public static async Task DemoCrawl()
         {
             var browser = Program.ServiceProvider.GetService<IBrowserController>();
-            var          url             = "https://vnexpress.net/";
+            var          url             = "https://tapas.io/comics";
             var          page            = await browser.NewPageAsync();
             var          mainPageContent = await GetPageContent(page, url, 1024, 768);
-            // Program.LogInfo(mainPageContent);
+            Program.LogInfo(mainPageContent);
             Program.LogInfo("Done");
         }
 

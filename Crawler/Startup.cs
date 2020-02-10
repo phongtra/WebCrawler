@@ -78,7 +78,7 @@ namespace Crawler
         {
             
             //Custom code
-            //await CrawlerCore.DemoCrawl();
+            // await CrawlerCore.DemoCrawl();
             await CrawlerHandler.DemoSimpleCrawler();
         }
     }
