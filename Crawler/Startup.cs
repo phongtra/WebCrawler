@@ -39,7 +39,9 @@ namespace Crawler
                     MaxPagesToCrawl                    = 10,  //Only crawl 10 pages
                     MinCrawlDelayPerDomainMilliSeconds = 3000 //Wait this many millisecs between requests
                 })
+                .AddTransient<IWebContentExtractor, WebContentExtractor>()
                 .AddTransient<IPageRequester, PageRequester>()
+                //.AddTransient<IPageRequester, ChromiumPageRequester>()
                 .AddTransient<IPoliteWebCrawler, PoliteWebCrawler>(provider =>
                 {
                     var crawlConfiguration = provider.GetRequiredService<CrawlConfiguration>();
@@ -49,8 +51,8 @@ namespace Crawler
                     // var threadManager = provider.GetRequiredService<IThreadManager>();
                     IScheduler scheduler = null;
                     // var scheduler = provider.GetRequiredService<IScheduler>();
-                    IPageRequester pageRequester = null;
-                    // var pageRequester = provider.GetRequiredService<IPageRequester>();
+                    // IPageRequester pageRequester = null;
+                    var pageRequester = provider.GetRequiredService<IPageRequester>();
                     IHtmlParser htmlParser = null;
                     // var htmlParser = provider.GetRequiredService<IHtmlParser>();
                     IMemoryManager memoryManager = null;
@@ -69,7 +71,7 @@ namespace Crawler
         {
             
             //Custom code
-            // await CrawlerCore.DemoCrawl();
+            //await CrawlerCore.DemoCrawl();
             await CrawlerHandler.DemoSimpleCrawler();
         }
     }
