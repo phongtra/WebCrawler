@@ -36,10 +36,10 @@ namespace CrawlerDisplayAPI.Controllers
         }
         // GET api/<controller>/5
         [HttpGet("{titleNo}/{ep}")]
-        public async Task<ActionResult<List<Page>>> Get(string titleNo, string ep)
+        public async Task<ActionResult<Page>> Get(string titleNo, string ep)
         {
             var page = await _context.Pages.Where(p => p.EpisodeLinkHash == ep).ToListAsync();
-            return Ok(page);
+            return Ok(page[0]);
         }
 
         // POST api/<controller>

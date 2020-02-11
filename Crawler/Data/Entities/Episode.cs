@@ -1,4 +1,7 @@
-namespace Crawler.Data.Entities
+using System;
+using System.Collections.Generic;
+
+namespace Content.Data.Entities
 {
     public partial class Episode
     {

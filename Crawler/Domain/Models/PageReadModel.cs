@@ -1,4 +1,7 @@
-namespace Crawler.Domain.Models
+using System;
+using System.Collections.Generic;
+
+namespace Content.Domain.Models
 {
     public partial class PageReadModel
     {
@@ -10,6 +13,8 @@ namespace Crawler.Domain.Models
         public long Id { get; set; }
 
         public string Updated { get; set; }
+
+        public string EpisodeLink { get; set; }
 
         #endregion
 

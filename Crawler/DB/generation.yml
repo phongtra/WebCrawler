@@ -1,6 +1,6 @@
 project:
   namespace: '{Database.Name}'
-  directory: C:\Users\phongth\Desktop\WebCrawlerPrj
+  directory: C:\Users\phongth\Desktop\WebCrawlerPrj\Crawler
 database:
   name: 
   provider: Sqlite

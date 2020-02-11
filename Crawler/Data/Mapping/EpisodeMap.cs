@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
-using Crawler.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Content.Data.Mapping
 {
     public partial class EpisodeMap
-        : IEntityTypeConfiguration<Episode>
+        : IEntityTypeConfiguration<Content.Data.Entities.Episode>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Episode> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Content.Data.Entities.Episode> builder)
         {
             #region Generated Configure
             // table

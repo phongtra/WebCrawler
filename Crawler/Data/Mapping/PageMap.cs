@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
-using Crawler.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Content.Data.Mapping
 {
     public partial class PageMap
-        : IEntityTypeConfiguration<Page>
+        : IEntityTypeConfiguration<Content.Data.Entities.Page>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Page> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Content.Data.Entities.Page> builder)
         {
             #region Generated Configure
             // table
@@ -37,6 +36,10 @@ namespace Content.Data.Mapping
                 .HasColumnName("Updated")
                 .HasColumnType("TEXT");
 
+            builder.Property(t => t.EpisodeLink)
+                .HasColumnName("EpisodeLink")
+                .HasColumnType("TEXT");
+
             // relationships
             #endregion
         }
@@ -49,6 +52,7 @@ namespace Content.Data.Mapping
         public const string ColumnContent = "Content";
         public const string ColumnId = "Id";
         public const string ColumnUpdated = "Updated";
+        public const string ColumnEpisodeLink = "EpisodeLink";
         #endregion
     }
 }

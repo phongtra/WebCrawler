@@ -1,4 +1,7 @@
-namespace Crawler.Domain.Models
+using System;
+using System.Collections.Generic;
+
+namespace Content.Domain.Models
 {
     public partial class PageCreateModel
     {
@@ -8,6 +11,8 @@ namespace Crawler.Domain.Models
         public string Content { get; set; }
 
         public string Updated { get; set; }
+
+        public string EpisodeLink { get; set; }
 
         #endregion
 

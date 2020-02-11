@@ -1,6 +1,6 @@
 using System;
 using FluentValidation;
-using Crawler.Domain.Models;
+using Content.Domain.Models;
 
 namespace Content.Domain.Validation
 {

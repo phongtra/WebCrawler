@@ -1,4 +1,7 @@
-namespace Crawler.Data.Entities
+using System;
+using System.Collections.Generic;
+
+namespace Content.Data.Entities
 {
     public partial class Page
     {
@@ -16,6 +19,8 @@ namespace Crawler.Data.Entities
         public long Id { get; set; }
 
         public string Updated { get; set; }
+
+        public string EpisodeLink { get; set; }
 
         #endregion
 
