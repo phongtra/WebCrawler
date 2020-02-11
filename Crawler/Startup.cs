@@ -28,12 +28,12 @@ namespace Crawler
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton(Configuration);
-            
+            // services.AddTransient<ContentContext>();
             //Custom code
-            // services.AddDbContext<ContentContext>(options =>
-            // {
-            //     options.UseSqlite(@"Data Source=D:\\WebCrawlerPrj\\Crawler\\DB\\content.db;");
-            // });
+            services.AddDbContext<ContentContext>(options =>
+            {
+                options.UseSqlite(@"Data Source=C:\\Users\\phongth\\Desktop\\WebCrawlerPrj\\Crawler\\DB\\content.db;");
+            });
             services
                 .AddTransient<LaunchOptions>(provider => new LaunchOptions
                 {

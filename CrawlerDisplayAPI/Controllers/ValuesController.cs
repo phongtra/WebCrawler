@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Content.Data;
-using Content.Data.Entities;
+using Crawler.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,17 +22,24 @@ namespace CrawlerDisplayAPI.Controllers
         }
         // GET: api/<controller>
         [HttpGet]
-        public async Task<ActionResult<List<CrawledLinks>>> Get()
+        public async Task<ActionResult<List<WebToon>>> Get()
         {
-            return await _context.CrawledLinks.ToListAsync();
+            return await _context.WebToons.ToListAsync();
         }
 
         // GET api/<controller>/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Page>> Get(int id)
+        [HttpGet("{titleNo}")]
+        public async Task<ActionResult<List<Episode>>> Get(string titleNo)
         {
-            var page = await _context.Pages.Where(p => p.CrawledLinkId == id).ToListAsync();
-            return Ok(page[0]);
+            var page = await _context.Episodes.Where(p => p.TitleNo == titleNo).ToListAsync();
+            return Ok(page);
+        }
+        // GET api/<controller>/5
+        [HttpGet("{titleNo}/{ep}")]
+        public async Task<ActionResult<List<Page>>> Get(string titleNo, string ep)
+        {
+            var page = await _context.Pages.Where(p => p.EpisodeLinkHash == ep).ToListAsync();
+            return Ok(page);
         }
 
         // POST api/<controller>

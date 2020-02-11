@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
+using Crawler.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Content.Data.Mapping
 {
     public partial class PageMap
-        : IEntityTypeConfiguration<Content.Data.Entities.Page>
+        : IEntityTypeConfiguration<Page>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Content.Data.Entities.Page> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Page> builder)
         {
             #region Generated Configure
             // table

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Content.Data.Entities;
-using Content.Domain.Models;
+using Crawler.Data.Entities;
+using Crawler.Domain.Models;
 
 namespace Crawler.Domain.Mapping
 {
