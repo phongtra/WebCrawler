@@ -1,8 +1,7 @@
-using System;
+using Crawler.Domain.Models;
 using FluentValidation;
-using Content.Domain.Models;
 
-namespace Content.Domain.Validation
+namespace Crawler.Domain.Validation
 {
     public partial class WebToonCreateModelValidator
         : AbstractValidator<WebToonCreateModel>

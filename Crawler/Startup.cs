@@ -5,6 +5,7 @@ using Abot2.Poco;
 using Abot2.Util;
 using Content.Data;
 using Crawler.Crawler;
+using Crawler.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

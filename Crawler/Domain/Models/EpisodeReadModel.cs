@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-
-namespace Content.Domain.Models
+namespace Crawler.Domain.Models
 {
     public partial class EpisodeReadModel
     {

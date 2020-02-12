@@ -10,13 +10,12 @@ using Abot2.Poco;
 using AngleSharp;
 using AngleSharp.Html.Parser;
 using Content.Data;
+using Crawler.Data;
 using Crawler.Domain.Mapping;
 using Crawler.Domain.Models;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
-namespace Crawler
+namespace Crawler.Crawler
 {
     public class CrawlerHandler
     {
@@ -65,7 +64,7 @@ namespace Crawler
                   
                     var cardModel = createWebToonModel(link, titleNo, imageLink, genre, subject, author);
                     var cardEntity = WebtoonProfile.MapCreateModelToEntity(cardModel);
-                    await _context.AddAsync(cardEntity);
+                    await _context.WebToons.AddAsync(cardEntity);
                     // await _context.SaveChangesAsync();
                 }
             }

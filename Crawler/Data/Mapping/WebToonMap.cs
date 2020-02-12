@@ -1,13 +1,12 @@
-using System;
-using System.Collections.Generic;
+using Crawler.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Content.Data.Mapping
+namespace Crawler.Data.Mapping
 {
     public partial class WebToonMap
-        : IEntityTypeConfiguration<Content.Data.Entities.WebToon>
+        : IEntityTypeConfiguration<WebToon>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Content.Data.Entities.WebToon> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<WebToon> builder)
         {
             #region Generated Configure
             // table
