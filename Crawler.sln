@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crawler", "Crawler\Crawler.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrawlerDisplayAPI", "CrawlerDisplayAPI\CrawlerDisplayAPI.csproj", "{0C8CCAEC-995F-4815-9B39-EB10CF89A0BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicProxyServer", "ComicProxyServer\ComicProxyServer.csproj", "{E1ED2AC4-A63D-4C93-92C0-79B75D066793}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComicProxyServer", "ComicProxyServer\ComicProxyServer.csproj", "{E1ED2AC4-A63D-4C93-92C0-79B75D066793}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicAPIGateway", "ComicAPIGateway\ComicAPIGateway.csproj", "{F6C48566-D4EB-48F2-89B0-701FD5559B04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{E1ED2AC4-A63D-4C93-92C0-79B75D066793}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1ED2AC4-A63D-4C93-92C0-79B75D066793}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1ED2AC4-A63D-4C93-92C0-79B75D066793}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6C48566-D4EB-48F2-89B0-701FD5559B04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6C48566-D4EB-48F2-89B0-701FD5559B04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6C48566-D4EB-48F2-89B0-701FD5559B04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6C48566-D4EB-48F2-89B0-701FD5559B04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
