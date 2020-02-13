@@ -1,24 +1,25 @@
+import "./ComicList.css";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
-import { Card, Image, Container } from "semantic-ui-react";
+import { Card, Image, Grid } from "semantic-ui-react";
 
 const ComicList = () => {
   const [comics, setComics] = useState([]);
   useEffect(() => {
     const fetchComics = async () => {
-      const res = await Axios.get("http://localhost:5000/api/values");
+      const res = await Axios.get("http://localhost:2000/values");
       setComics(res.data);
     };
     fetchComics();
   }, []);
-  console.log(comics);
+
   return (
-    <Container>
-      <Card.Group itemsPerRow={6} centered>
-        {comics.map((comic, i) => {
-          return (
-            <Card key={i}>
+    <Grid doubling columns={5} centered>
+      {comics.map((comic, i) => {
+        return (
+          <Grid.Column key={i}>
+            <Card>
               <Link to={`/${comic.titleNo}`}>
                 <Image src={comic.imageLink} size="small" centered />
               </Link>
@@ -36,10 +37,10 @@ const ComicList = () => {
                 </Link>
               </Card.Content>
             </Card>
-          );
-        })}
-      </Card.Group>
-    </Container>
+          </Grid.Column>
+        );
+      })}
+    </Grid>
   );
 };
 

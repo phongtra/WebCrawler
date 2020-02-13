@@ -38,7 +38,7 @@ namespace Crawler.Crawler
 
             crawler.PageCrawlCompleted += Crawler_PageCrawlCompleted; ; //Several events available...
 
-            var crawlResult = await crawler.CrawlAsync(new Uri("https://www.webtoons.com/en/romance/subzero/list?title_no=1468"));
+            var crawlResult = await crawler.CrawlAsync(new Uri("https://www.webtoons.com/en/romance/edith/list?title_no=1536"));
         }
 
         private static async void Crawler_PageCrawlCompleted(object sender, PageCrawlCompletedArgs e)
@@ -69,55 +69,55 @@ namespace Crawler.Crawler
                     // await _context.SaveChangesAsync();
                 }
             }
-            // else if (e.CrawledPage.Uri.AbsoluteUri.Contains("list"))
-            // {
-            //     var context = BrowsingContext.New(Configuration.Default);
-            //     var parser = context.GetService<IHtmlParser>();
-            //     var document = parser.ParseDocument(rawPageText);
-            //     var list = document.QuerySelectorAll("#_listUl li");
-            //     Console.WriteLine(list.Length);
-            //     foreach (var item in list)
-            //     {
-            //         var link = new Uri(e.CrawledPage.Uri.AbsoluteUri);
-            //         var titleNo = HttpUtility.ParseQueryString(link.Query).Get("title_no");
-            //         var episodeName = item.QuerySelector("a .subj").InnerHtml;
-            //         var episodeThumb = item.QuerySelector("a .thmb img").GetAttribute("src");
-            //         var episodeDate = item.QuerySelector("a .date").InnerHtml;
-            //         var episodeLink = item.QuerySelector("a").GetAttribute("href");
-            //         var episodeLinkHash = ComputeSha256Hash(episodeLink);
-            //         var episodeModel = createEpisodeModel(titleNo, episodeName, episodeThumb, episodeDate, episodeLink,
-            //             episodeLinkHash);
-            //         var episodeEntity = EpisodeProfile.MapCreateModelToEntity(episodeModel);
-            //         // Console.WriteLine(episodeThumb);
-            //         // var _context = Program.ServiceProvider.GetService<ContentContext>();
-            //         var existed = await _context.Episodes.FindAsync(episodeLinkHash);
-            //         if (existed == null) { await _context.AddAsync(episodeEntity); }
-            //         
-            //         // Console.WriteLine(episodeLinkHash);
-            //         
-            //     }
-            // }
-            else if (e.CrawledPage.Uri.AbsoluteUri.Contains("viewer"))
+            else if (e.CrawledPage.Uri.AbsoluteUri.Contains("list"))
             {
                 var context = BrowsingContext.New(Configuration.Default);
                 var parser = context.GetService<IHtmlParser>();
                 var document = parser.ParseDocument(rawPageText);
-                var content = document.QuerySelectorAll(".viewer_img img");
-                var contentLinks = content.Select(cont => new Uri(cont.GetAttribute("data-url")).PathAndQuery).ToList();
-                // foreach (var cont in contentLinks)
-                // {
-                //     var linkData = new Uri(cont);
-                //     Console.WriteLine(linkData.PathAndQuery);
-                // }
-                var episodeLink = e.CrawledPage.Uri.AbsoluteUri;
-                var epsiodeLinkHash = ComputeSha256Hash(episodeLink);
-                var contentJson = JsonSerializer.Serialize(contentLinks);
-                var pageModel = createPageModel(epsiodeLinkHash, contentJson);
-                var pageEntity = PageProfile.MapCreateModelToEntity(pageModel);
-                // var _context = Program.ServiceProvider.GetService<ContentContext>();
-                await _context.AddAsync(pageEntity);
-                // await _context.SaveChangesAsync();
+                var list = document.QuerySelectorAll("#_listUl li");
+                Console.WriteLine(list.Length);
+                foreach (var item in list)
+                {
+                    var link = new Uri(e.CrawledPage.Uri.AbsoluteUri);
+                    var titleNo = HttpUtility.ParseQueryString(link.Query).Get("title_no");
+                    var episodeName = item.QuerySelector("a .subj").InnerHtml;
+                    var episodeThumb = item.QuerySelector("a .thmb img").GetAttribute("src");
+                    var episodeDate = item.QuerySelector("a .date").InnerHtml;
+                    var episodeLink = item.QuerySelector("a").GetAttribute("href");
+                    var episodeLinkHash = ComputeSha256Hash(episodeLink);
+                    var episodeModel = createEpisodeModel(titleNo, episodeName, episodeThumb, episodeDate, episodeLink,
+                        episodeLinkHash);
+                    var episodeEntity = EpisodeProfile.MapCreateModelToEntity(episodeModel);
+                    // Console.WriteLine(episodeThumb);
+                    // var _context = Program.ServiceProvider.GetService<ContentContext>();
+                    var existed = await _context.Episodes.FindAsync(episodeLinkHash);
+                    if (existed == null) { await _context.AddAsync(episodeEntity); }
+                    
+                    // Console.WriteLine(episodeLinkHash);
+                    
+                }
             }
+            // else if (e.CrawledPage.Uri.AbsoluteUri.Contains("viewer"))
+            // {
+            //     var context = BrowsingContext.New(Configuration.Default);
+            //     var parser = context.GetService<IHtmlParser>();
+            //     var document = parser.ParseDocument(rawPageText);
+            //     var content = document.QuerySelectorAll(".viewer_img img");
+            //     var contentLinks = content.Select(cont => new Uri(cont.GetAttribute("data-url")).PathAndQuery).ToList();
+            //     // foreach (var cont in contentLinks)
+            //     // {
+            //     //     var linkData = new Uri(cont);
+            //     //     Console.WriteLine(linkData.PathAndQuery);
+            //     // }
+            //     var episodeLink = e.CrawledPage.Uri.AbsoluteUri;
+            //     var epsiodeLinkHash = ComputeSha256Hash(episodeLink);
+            //     var contentJson = JsonSerializer.Serialize(contentLinks);
+            //     var pageModel = createPageModel(epsiodeLinkHash, contentJson);
+            //     var pageEntity = PageProfile.MapCreateModelToEntity(pageModel);
+            //     // var _context = Program.ServiceProvider.GetService<ContentContext>();
+            //     await _context.AddAsync(pageEntity);
+            //     // await _context.SaveChangesAsync();
+            // }
             Program.LogInfo(count.ToString());
             await _context.SaveChangesAsync();
         }

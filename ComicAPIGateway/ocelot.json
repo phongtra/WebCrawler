@@ -1,0 +1,51 @@
+{
+  "ReRoutes": [
+    {
+      "DownstreamPathTemplate": "/api/values/",
+      "UpstreamPathTemplate": "/values/",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/values/{url}",
+      "UpstreamPathTemplate": "/values/{url}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/comic/{url}",
+      "UpstreamPathTemplate": "/comic/{url}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/{url}",
+      "UpstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 3000
+        }
+      ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:65479"
+  }
+}
