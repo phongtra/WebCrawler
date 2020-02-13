@@ -6,9 +6,10 @@ import { Card, Image, Grid } from "semantic-ui-react";
 
 const ComicList = () => {
   const [comics, setComics] = useState([]);
+
   useEffect(() => {
     const fetchComics = async () => {
-      const res = await Axios.get("http://localhost:2000/values");
+      const res = await Axios.get("/values");
       setComics(res.data);
     };
     fetchComics();

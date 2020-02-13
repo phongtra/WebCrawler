@@ -6,11 +6,10 @@ import { Item } from "semantic-ui-react";
 
 const ComicDetail = props => {
   const [episodes, setEpisodes] = useState([]);
+
   useEffect(() => {
     const fetchEpisodes = async () => {
-      const res = await Axios.get(
-        `http://localhost:2000/values/${props.match.params.titleNo}`
-      );
+      const res = await Axios.get(`/values/${props.match.params.titleNo}`);
       setEpisodes(res.data);
     };
     fetchEpisodes();
