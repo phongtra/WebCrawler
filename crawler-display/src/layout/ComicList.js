@@ -15,15 +15,15 @@ const ComicList = () => {
   console.log(comics);
   return (
     <Container>
-      <Card.Group>
+      <Card.Group itemsPerRow={6} centered>
         {comics.map((comic, i) => {
           return (
             <Card key={i}>
+              <Link to={`/${comic.titleNo}`}>
+                <Image src={comic.imageLink} size="small" centered />
+              </Link>
               <Card.Content>
-                <Link to={`/${comic.titleNo}`}>
-                  <Image floated="left" size="mini" src={comic.imageLink} />
-                </Link>
-                <Card.Header>{comic.subject}</Card.Header>
+                <Card.Header centered>{comic.subject}</Card.Header>
                 <Link style={{ color: "black" }} to={`/${comic.titleNo}`}>
                   <Card.Description>
                     <b>Genre: </b>

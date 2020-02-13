@@ -19,18 +19,14 @@ const ComicDetail = props => {
   if (episodes.length === 0) return <div>Coming soon</div>;
   return (
     <Container>
-      <Card.Group>
+      <Card.Group itemsPerRow={3}>
         {episodes.map((episode, i) => {
           return (
             <Card key={i}>
-              <Card.Content>
-                <Link to={`/${episode.titleNo}/${episode.episodeLinkHash}`}>
-                  <Image
-                    floated="left"
-                    size="small"
-                    src={episode.episodeThumbnail}
-                  />
-                </Link>
+              <Link to={`/${episode.titleNo}/${episode.episodeLinkHash}`}>
+                <Image size="small" src={episode.episodeThumbnail} centered />
+              </Link>
+              <Card.Content centered>
                 <Card.Header
                   dangerouslySetInnerHTML={{ __html: episode.episodeName }}
                 ></Card.Header>

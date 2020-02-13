@@ -21,32 +21,18 @@ const EpisodeDetail = props => {
     fetchEpisodeContent();
   }, []);
   if (episodeContent.content) {
-    JSON.parse(episodeContent.content).forEach(img => {
-      var request;
-      if (window.XMLHttpRequest) {
-        // Mozilla, Safari, ...
-        request = new XMLHttpRequest();
-        
-      }
-      // } else if (window.ActiveXObject) {
-      //   // IE
-      //   try {
-      //     request = new ActiveXObject("Msxml2.XMLHTTP");
-      //   } catch (e) {
-      //     try {
-      //       request = new ActiveXObject("Microsoft.XMLHTTP");
-      //     } catch (e) {}
-      //   }
-      // }
-      request.open("GET", img, true);
-      request.send();
-    });
-
     return (
       <Container>
         <div>
           {JSON.parse(episodeContent.content).map((img, i) => {
-            return <img key={i} height="1000" width="800" src={img} />;
+            return (
+              <img
+                key={i}
+                height="1000"
+                width="800"
+                src={`http://localhost:5001/api/comic${img}`}
+              />
+            );
           })}
         </div>
       </Container>

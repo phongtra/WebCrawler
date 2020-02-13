@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Web;
 using Abot2.Crawler;
 using Abot2.Poco;
 using AngleSharp;
 using AngleSharp.Html.Parser;
-using Content.Data;
+
 using Crawler.Data;
 using Crawler.Domain.Mapping;
 using Crawler.Domain.Models;
@@ -101,25 +102,24 @@ namespace Crawler.Crawler
                 var context = BrowsingContext.New(Configuration.Default);
                 var parser = context.GetService<IHtmlParser>();
                 var document = parser.ParseDocument(rawPageText);
-                var content = document.QuerySelector(".viewer_img");
-                Console.WriteLine(content.InnerHtml);
-                // var contentLinks = content.Select(cont => cont.GetAttribute("data-url")).ToList();
-                // foreach (var cont in content)
+                var content = document.QuerySelectorAll(".viewer_img img");
+                var contentLinks = content.Select(cont => new Uri(cont.GetAttribute("data-url")).PathAndQuery).ToList();
+                // foreach (var cont in contentLinks)
                 // {
-                //     var linkData = cont.InnerHtml;
-                //     Console.WriteLine(linkData);
+                //     var linkData = new Uri(cont);
+                //     Console.WriteLine(linkData.PathAndQuery);
                 // }
-                // var episodeLink = e.CrawledPage.Uri.AbsoluteUri;
-                // var epsiodeLinkHash = ComputeSha256Hash(episodeLink);
-                // var contentJson = JsonSerializer.Serialize(contentLinks);
-                // var pageModel = createPageModel(epsiodeLinkHash, contentJson);
-                // var pageEntity = PageProfile.MapCreateModelToEntity(pageModel);
+                var episodeLink = e.CrawledPage.Uri.AbsoluteUri;
+                var epsiodeLinkHash = ComputeSha256Hash(episodeLink);
+                var contentJson = JsonSerializer.Serialize(contentLinks);
+                var pageModel = createPageModel(epsiodeLinkHash, contentJson);
+                var pageEntity = PageProfile.MapCreateModelToEntity(pageModel);
                 // var _context = Program.ServiceProvider.GetService<ContentContext>();
-                // await _context.AddAsync(pageEntity);
+                await _context.AddAsync(pageEntity);
                 // await _context.SaveChangesAsync();
             }
             Program.LogInfo(count.ToString());
-            // await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
         private static EpisodeCreateModel createEpisodeModel(string titleNo, string episodeName,
