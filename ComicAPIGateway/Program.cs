@@ -27,7 +27,7 @@ namespace ComicAPIGateway
             return builder
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder
+                    webBuilder.UseKestrel()
                         .UseStartup<Startup>();
                 });
         }
