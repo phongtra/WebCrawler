@@ -1,8 +1,8 @@
 // import './ArticleDetail.css';
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import Axios from "axios";
-import { Item } from "semantic-ui-react";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Axios from 'axios';
+import { Item } from 'semantic-ui-react';
 
 const ComicDetail = props => {
   const [episodes, setEpisodes] = useState([]);
@@ -23,10 +23,10 @@ const ComicDetail = props => {
           <Link
             to={`/${ep.titleNo}/${ep.episodeLinkHash}`}
             class="item"
-            style={{ color: "black" }}
+            style={{ color: 'black' }}
             key={i}
           >
-            <Item.Image size="tiny" src={ep.episodeThumbnail} />
+            <Item.Image size="tiny" src={`/comic${ep.episodeThumbnail}`} />
             <Item.Content verticalAlign="middle">
               <Item.Header
                 dangerouslySetInnerHTML={{ __html: ep.episodeName }}

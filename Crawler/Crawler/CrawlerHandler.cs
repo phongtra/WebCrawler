@@ -27,7 +27,7 @@ namespace Crawler.Crawler
             var crawler = Program.ServiceProvider.GetService<IPoliteWebCrawler>();
             crawler.ShouldCrawlPageDecisionMaker += (crawl, context) =>
             {
-                if (genres.Any(genre => crawl.Uri.AbsoluteUri.Contains(genre)  ||
+                if (genres.Any(genre => crawl.Uri.AbsoluteUri.Contains(genre)  || 
                                          crawl.Uri.AbsoluteUri.Contains("viewer")))
                 {
                     return new CrawlDecision { Allow = true };
@@ -56,7 +56,7 @@ namespace Crawler.Crawler
 
                 foreach (var comicCard in comicCards)
                 {
-                    var imageLink = comicCard.QuerySelector("img").GetAttribute("src");
+                    var imageLink = new Uri(comicCard.QuerySelector("img").GetAttribute("src")).PathAndQuery;
                     var link = comicCard.GetAttribute("href");
                     var titleNo = HttpUtility.ParseQueryString(new Uri(link).Query).Get("title_no");
                     var genre = comicCard.QuerySelector(".genre").InnerHtml;
@@ -65,7 +65,12 @@ namespace Crawler.Crawler
                   
                     var cardModel = createWebToonModel(link, titleNo, imageLink, genre, subject, author);
                     var cardEntity = WebtoonProfile.MapCreateModelToEntity(cardModel);
+                    var existingWeb = await _context.WebToons.FindAsync(titleNo);
+                    if (existingWeb != null) continue;
                     await _context.WebToons.AddAsync(cardEntity);
+                    await _context.SaveChangesAsync();
+                    // Console.WriteLine(imageLink);
+
                     // await _context.SaveChangesAsync();
                 }
             }
@@ -81,7 +86,7 @@ namespace Crawler.Crawler
                     var link = new Uri(e.CrawledPage.Uri.AbsoluteUri);
                     var titleNo = HttpUtility.ParseQueryString(link.Query).Get("title_no");
                     var episodeName = item.QuerySelector("a .subj").InnerHtml;
-                    var episodeThumb = item.QuerySelector("a .thmb img").GetAttribute("src");
+                    var episodeThumb = new Uri(item.QuerySelector("a .thmb img").GetAttribute("src")).PathAndQuery;
                     var episodeDate = item.QuerySelector("a .date").InnerHtml;
                     var episodeLink = item.QuerySelector("a").GetAttribute("href");
                     var episodeLinkHash = ComputeSha256Hash(episodeLink);
@@ -91,8 +96,10 @@ namespace Crawler.Crawler
                     // Console.WriteLine(episodeThumb);
                     // var _context = Program.ServiceProvider.GetService<ContentContext>();
                     var existed = await _context.Episodes.FindAsync(episodeLinkHash);
-                    if (existed == null) { await _context.AddAsync(episodeEntity); }
-                    
+                    if (existed != null) continue;
+                    await _context.AddAsync(episodeEntity);
+                    await _context.SaveChangesAsync();
+
                     // Console.WriteLine(episodeLinkHash);
                     
                 }
@@ -119,7 +126,7 @@ namespace Crawler.Crawler
             //     // await _context.SaveChangesAsync();
             // }
             Program.LogInfo(count.ToString());
-            await _context.SaveChangesAsync();
+            
         }
 
         private static EpisodeCreateModel createEpisodeModel(string titleNo, string episodeName,

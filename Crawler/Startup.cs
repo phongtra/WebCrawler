@@ -31,7 +31,7 @@ namespace Crawler
             //Custom code
             services.AddDbContext<ContentContext>(options =>
             {
-                options.UseSqlite(@"Data Source=C:\\Users\\phongth\\Desktop\\WebCrawlerPrj\\Crawler\\DB\\content.db;");
+                options.UseSqlite(@"Data Source=/home/phong/WebCrawlerPrj/Crawler/DB/content.db;");
             });
             services
                 .AddTransient<LaunchOptions>(provider => new LaunchOptions
