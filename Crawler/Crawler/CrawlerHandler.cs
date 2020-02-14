@@ -21,7 +21,7 @@ namespace Crawler.Crawler
     public class CrawlerHandler
     {
         private static int count = 0;
-        private static List<string> genres = new List<string>(){"romance", "fantasy"};
+        private static List<string> genres = new List<string>(){"romance", "fantasy", "drama", "comedy", "action", "slice-of-life", "superhero", "historical", "thriller", "sports", "heartwarming", "sci-fi", "horror", "informative"};
         public static async Task DemoSimpleCrawler()
         {
             var crawler = Program.ServiceProvider.GetService<IPoliteWebCrawler>();
