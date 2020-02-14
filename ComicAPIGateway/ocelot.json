@@ -23,15 +23,21 @@
       ]
     },
     {
-      "DownstreamPathTemplate": "/api/comic/{url}",
-      "UpstreamPathTemplate": "/comic/{url}",
-      "DownstreamScheme": "http",
+      "DownstreamPathTemplate": "/{url}/{hash}/{something}",
+      "UpstreamPathTemplate": "/comic/{url}/{hash}/{something}",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 1101
+          "Host": "webtoon-phinf.pstatic.net",
+          "Port": 443
         }
-      ]
+      ],
+      //"DownstreamHeaderTransform": {
+      //  "Referer": "https://webtoon-phinf.pstatic.net/"
+      //},
+      "UpstreamHeaderTransform": {
+        "Referer": "https://webtoon-phinf.pstatic.net/"
+      }
     },
     {
       "DownstreamPathTemplate": "/{url}",
