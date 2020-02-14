@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using Abot2.Core;
 using Abot2.Crawler;
 using Abot2.Poco;

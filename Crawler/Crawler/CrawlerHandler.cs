@@ -68,7 +68,7 @@ namespace Crawler.Crawler
                     var existingWeb = await _context.WebToons.FindAsync(titleNo);
                     if (existingWeb != null) continue;
                     await _context.WebToons.AddAsync(cardEntity);
-                    await _context.SaveChangesAsync();
+                    // await _context.SaveChangesAsync();
                     // Console.WriteLine(imageLink);
 
                     // await _context.SaveChangesAsync();
@@ -98,33 +98,36 @@ namespace Crawler.Crawler
                     var existed = await _context.Episodes.FindAsync(episodeLinkHash);
                     if (existed != null) continue;
                     await _context.AddAsync(episodeEntity);
-                    await _context.SaveChangesAsync();
+                    // await _context.SaveChangesAsync();
 
                     // Console.WriteLine(episodeLinkHash);
                     
                 }
             }
-            // else if (e.CrawledPage.Uri.AbsoluteUri.Contains("viewer"))
-            // {
-            //     var context = BrowsingContext.New(Configuration.Default);
-            //     var parser = context.GetService<IHtmlParser>();
-            //     var document = parser.ParseDocument(rawPageText);
-            //     var content = document.QuerySelectorAll(".viewer_img img");
-            //     var contentLinks = content.Select(cont => new Uri(cont.GetAttribute("data-url")).PathAndQuery).ToList();
-            //     // foreach (var cont in contentLinks)
-            //     // {
-            //     //     var linkData = new Uri(cont);
-            //     //     Console.WriteLine(linkData.PathAndQuery);
-            //     // }
-            //     var episodeLink = e.CrawledPage.Uri.AbsoluteUri;
-            //     var epsiodeLinkHash = ComputeSha256Hash(episodeLink);
-            //     var contentJson = JsonSerializer.Serialize(contentLinks);
-            //     var pageModel = createPageModel(epsiodeLinkHash, contentJson);
-            //     var pageEntity = PageProfile.MapCreateModelToEntity(pageModel);
-            //     // var _context = Program.ServiceProvider.GetService<ContentContext>();
-            //     await _context.AddAsync(pageEntity);
-            //     // await _context.SaveChangesAsync();
-            // }
+            else if (e.CrawledPage.Uri.AbsoluteUri.Contains("viewer"))
+            {
+                var context = BrowsingContext.New(Configuration.Default);
+                var parser = context.GetService<IHtmlParser>();
+                var document = parser.ParseDocument(rawPageText);
+                var content = document.QuerySelectorAll(".viewer_img img");
+                var contentLinks = content.Select(cont => new Uri(cont.GetAttribute("data-url")).PathAndQuery).ToList();
+                // foreach (var cont in contentLinks)
+                // {
+                //     var linkData = new Uri(cont);
+                //     Console.WriteLine(linkData.PathAndQuery);
+                // }
+                var episodeLink = e.CrawledPage.Uri.AbsoluteUri;
+                var epsiodeLinkHash = ComputeSha256Hash(episodeLink);
+                var contentJson = JsonSerializer.Serialize(contentLinks);
+                var pageModel = createPageModel(epsiodeLinkHash, contentJson);
+                var pageEntity = PageProfile.MapCreateModelToEntity(pageModel);
+                // var _context = Program.ServiceProvider.GetService<ContentContext>();
+                var existingPage = _context.Pages.Where(p => p.Content == contentJson).ToList();
+                if (existingPage.Count == 0) { await _context.AddAsync(pageEntity); }
+                
+                // await _context.SaveChangesAsync();
+            }
+            _context.SaveChanges();
             Program.LogInfo(count.ToString());
             
         }

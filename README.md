@@ -2,8 +2,12 @@ WebCrawlerPrj
 
 **To run**
 
-React: `cd ReactServer` then `dotnet run`
+To run the project, ReactServer, CrawlerDisplayAPI, and ComicAPIGateway needs to run
 
-cd into `CrawlerDisplayAPI`, `ComicProxyServer`, and `ComicAPIGateway` and type `dotnet run`
+**1**. ReactServer: Navigate to ReactServer folder and type in `dotnet run`
 
-navigate to port 2000
+**2**. CrawlerDisplayAPI: Navigate to CrawlerDisplayAPI and type in `dotnet run`
+
+**3**. ComicAPIGateway: Navigate to ComicAPIGateway and type in `dotnet run`
+
+**4**. The application should be available on port 2000
