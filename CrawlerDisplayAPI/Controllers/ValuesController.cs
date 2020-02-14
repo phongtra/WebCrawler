@@ -31,6 +31,10 @@ namespace CrawlerDisplayAPI.Controllers
         public async Task<ActionResult<List<Episode>>> Get(string titleNo)
         {
             var page = await _context.Episodes.Where(p => p.TitleNo == titleNo).ToListAsync();
+            if (page.Count == 0)
+            {
+                return BadRequest();
+            } 
             return Ok(page);
         }
         // GET api/<controller>/5
@@ -38,6 +42,10 @@ namespace CrawlerDisplayAPI.Controllers
         public async Task<ActionResult<Page>> Get(string titleNo, string ep)
         {
             var page = await _context.Pages.Where(p => p.EpisodeLinkHash == ep).ToListAsync();
+            if (page.Count == 0)
+            {
+                return BadRequest();
+            }
             return Ok(page[0]);
         }
 
