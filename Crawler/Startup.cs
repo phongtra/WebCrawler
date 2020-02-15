@@ -42,7 +42,7 @@ namespace Crawler
 
             services.AddTransient<CrawlConfiguration>(provider => new CrawlConfiguration
                 {
-                    MaxPagesToCrawl                    = 10,  //Only crawl 10 pages
+                    MaxPagesToCrawl                    = 0,  //Max Crawl
                     MinCrawlDelayPerDomainMilliSeconds = 3000 //Wait this many millisecs between requests
                 })
                 .AddTransient<IWebContentExtractor, WebContentExtractor>()
