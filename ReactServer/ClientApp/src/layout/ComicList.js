@@ -30,7 +30,7 @@ const ComicList = () => {
     return <div>{noContent}</div>;
   }
   return (
-    <Grid doubling columns={5} centered>
+    <Grid doubling columns={4} centered>
       {comics.map((comic, i) => {
         return (
           <Grid.Column key={i}>
@@ -40,7 +40,7 @@ const ComicList = () => {
               </Link>
               <Card.Content>
                 <Card.Header centered>{comic.subject}</Card.Header>
-                <Link style={{ color: "black" }} to={`/${comic.titleNo}`}>
+                <Link style={{ color: 'black' }} to={`/${comic.titleNo}`}>
                   <Card.Description>
                     <b>Genre: </b>
                     {comic.genre}
