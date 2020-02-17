@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Crawler.Data;
@@ -31,11 +33,12 @@ namespace CrawlerDisplayAPI.Controllers
         public async Task<ActionResult<List<Episode>>> Get(string titleNo)
         {
             var page = await _context.Episodes.Where(p => p.TitleNo == titleNo).ToListAsync();
+            var pageOrder = page.OrderByDescending(p => DateTime.Parse(p.EpisodeDate));
             if (page.Count == 0)
             {
                 return BadRequest();
             } 
-            return Ok(page);
+            return Ok(pageOrder);
         }
         // GET api/<controller>/5
         [HttpGet("{titleNo}/{ep}")]
