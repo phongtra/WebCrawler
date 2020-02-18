@@ -53,9 +53,9 @@ const EpisodeDetail = props => {
                   <a
                     href={`/${props.match.params.genre}/${
                       props.match.params.subject
-                    }/${props.match.params.titleNo}/${
-                      ep.episodeName.match(/\d+/g)[0]
-                    }/${ep.episodeLinkHash}`}
+                    }/${props.match.params.titleNo}/${ep.episodeName.match(
+                      /\d+/g
+                    )}/${ep.episodeLinkHash}`}
                     role="option"
                     className="item"
                     key={i}
