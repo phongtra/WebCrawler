@@ -31,8 +31,8 @@ namespace Crawler
             //Custom code
             services.AddDbContext<ContentContext>(options =>
             {
-                options.UseSqlite(@"Data Source=/home/phong/WebCrawlerPrj/Crawler/DB/content.db;");
-            });
+                options.UseSqlite(@"Data Source=D:/repos/WebCrawlerPrj/Crawler/DB/content.db;");
+            }, ServiceLifetime.Transient);
             services
                 .AddTransient<LaunchOptions>(provider => new LaunchOptions
                 {
@@ -42,7 +42,8 @@ namespace Crawler
 
             services.AddTransient<CrawlConfiguration>(provider => new CrawlConfiguration
                 {
-                    MaxPagesToCrawl                    = 0,  //Max Crawl
+                    MaxPagesToCrawl                    = 0,  //Max Crawl,
+                    MaxConcurrentThreads = 10,
                     MinCrawlDelayPerDomainMilliSeconds = 3000 //Wait this many millisecs between requests
                 })
                 .AddTransient<IWebContentExtractor, WebContentExtractor>()
