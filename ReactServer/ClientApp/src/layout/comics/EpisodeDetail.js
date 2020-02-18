@@ -1,14 +1,14 @@
-import React, { useState, useEffect, createRef } from "react";
-import { Link } from "react-router-dom";
-import Axios from "axios";
-import Loading from "../commons/Loading";
-import AdGrid from "../commons/AdGrid";
-import { Menu, Dropdown, Sticky } from "semantic-ui-react";
+import React, { useState, useEffect, createRef } from 'react';
+import { Link } from 'react-router-dom';
+import Axios from 'axios';
+import Loading from '../commons/Loading';
+import AdGrid from '../commons/AdGrid';
+import { Menu, Dropdown, Sticky } from 'semantic-ui-react';
 
 const EpisodeDetail = props => {
   const [episodeContent, setEpisodeContent] = useState({});
   const [loading, setLoading] = useState(true);
-  const [noContent, setNoContent] = useState("");
+  const [noContent, setNoContent] = useState('');
   const [episodes, setEpisodes] = useState([]);
   const contextRef = createRef();
   useEffect(() => {
@@ -27,7 +27,7 @@ const EpisodeDetail = props => {
         setEpisodes(res2.data);
         setLoading(false);
       } catch {
-        setNoContent("Coming soon");
+        setNoContent('Coming soon');
         setLoading(false);
       }
     };
@@ -53,9 +53,9 @@ const EpisodeDetail = props => {
                   <a
                     href={`/${props.match.params.genre}/${
                       props.match.params.subject
-                    }/${props.match.params.titleNo}/${
-                      ep.episodeName.match(/\d+/g)[0]
-                    }/${ep.episodeLinkHash}`}
+                    }/${props.match.params.titleNo}/${ep.episodeName.match(
+                      /\d+/g
+                    )}/${ep.episodeLinkHash}`}
                     role="option"
                     className="item"
                     key={i}
@@ -85,12 +85,12 @@ const EpisodeDetail = props => {
     return (
       <div ref={contextRef}>
         <Sticky context={contextRef}>{renderHeader()}</Sticky>
-        <AdGrid>
+        <AdGrid nonStick={true}>
           <div>
             {JSON.parse(episodeContent.content).map((img, i) => {
               return (
                 <img
-                  style={{ verticalAlign: "top" }}
+                  style={{ verticalAlign: 'top' }}
                   key={i}
                   height="1000"
                   width="800"
