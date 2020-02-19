@@ -43,28 +43,39 @@ namespace Crawler.Crawler
 
         private static async void Crawler_PageCrawlCompleted(object sender, PageCrawlCompletedArgs e)
         {
+            // Run application code
+            using (var scope = Program.ServiceProvider.CreateScope())
+            {
+                var _context = Program.ServiceProvider.GetService<ContentContext>();
+
+                await OnPageCrawlCompleted(e, _context);
+            }
+
+        }
+
+        private static async Task OnPageCrawlCompleted(PageCrawlCompletedArgs e, ContentContext _context)
+        {
             count++;
             var httpStatus  = e.CrawledPage.HttpResponseMessage.StatusCode;
             var rawPageText = e.CrawledPage.Content.Text;
-            var _context = Program.ServiceProvider.GetService<ContentContext>();
             if (e.CrawledPage.Uri.AbsoluteUri == "https://www.webtoons.com/en/dailySchedule")
             {
-                var context = BrowsingContext.New(Configuration.Default);
-                var parser = context.GetService<IHtmlParser>();
-                var document = parser.ParseDocument(rawPageText);
+                var context    = BrowsingContext.New(Configuration.Default);
+                var parser     = context.GetService<IHtmlParser>();
+                var document   = parser.ParseDocument(rawPageText);
                 var comicCards = document.QuerySelectorAll(".daily_card_item");
 
                 foreach (var comicCard in comicCards)
                 {
                     var imageLink = new Uri(comicCard.QuerySelector("img").GetAttribute("src")).PathAndQuery;
-                    var link = comicCard.GetAttribute("href");
-                    var titleNo = HttpUtility.ParseQueryString(new Uri(link).Query).Get("title_no");
-                    var genre = comicCard.QuerySelector(".genre").InnerHtml;
-                    var subject = comicCard.QuerySelector(".subj").InnerHtml;
-                    var author = comicCard.QuerySelector(".author").InnerHtml;
-                  
-                    var cardModel = createWebToonModel(link, titleNo, imageLink, genre, subject, author);
-                    var cardEntity = WebtoonProfile.MapCreateModelToEntity(cardModel);
+                    var link      = comicCard.GetAttribute("href");
+                    var titleNo   = HttpUtility.ParseQueryString(new Uri(link).Query).Get("title_no");
+                    var genre     = comicCard.QuerySelector(".genre").InnerHtml;
+                    var subject   = comicCard.QuerySelector(".subj").InnerHtml;
+                    var author    = comicCard.QuerySelector(".author").InnerHtml;
+
+                    var cardModel   = createWebToonModel(link, titleNo, imageLink, genre, subject, author);
+                    var cardEntity  = WebtoonProfile.MapCreateModelToEntity(cardModel);
                     var existingWeb = await _context.WebToons.FindAsync(titleNo);
                     if (existingWeb != null) continue;
                     await _context.WebToons.AddAsync(cardEntity);
@@ -76,19 +87,19 @@ namespace Crawler.Crawler
             }
             else if (e.CrawledPage.Uri.AbsoluteUri.Contains("list"))
             {
-                var context = BrowsingContext.New(Configuration.Default);
-                var parser = context.GetService<IHtmlParser>();
+                var context  = BrowsingContext.New(Configuration.Default);
+                var parser   = context.GetService<IHtmlParser>();
                 var document = parser.ParseDocument(rawPageText);
-                var list = document.QuerySelectorAll("#_listUl li");
+                var list     = document.QuerySelectorAll("#_listUl li");
                 Console.WriteLine(list.Length);
                 foreach (var item in list)
                 {
-                    var link = new Uri(e.CrawledPage.Uri.AbsoluteUri);
-                    var titleNo = HttpUtility.ParseQueryString(link.Query).Get("title_no");
-                    var episodeName = item.QuerySelector("a .subj").InnerHtml;
-                    var episodeThumb = new Uri(item.QuerySelector("a .thmb img").GetAttribute("src")).PathAndQuery;
-                    var episodeDate = item.QuerySelector("a .date").InnerHtml;
-                    var episodeLink = item.QuerySelector("a").GetAttribute("href");
+                    var link            = new Uri(e.CrawledPage.Uri.AbsoluteUri);
+                    var titleNo         = HttpUtility.ParseQueryString(link.Query).Get("title_no");
+                    var episodeName     = item.QuerySelector("a .subj").InnerHtml;
+                    var episodeThumb    = new Uri(item.QuerySelector("a .thmb img").GetAttribute("src")).PathAndQuery;
+                    var episodeDate     = item.QuerySelector("a .date").InnerHtml;
+                    var episodeLink     = item.QuerySelector("a").GetAttribute("href");
                     var episodeLinkHash = ComputeSha256Hash(episodeLink);
                     var episodeModel = createEpisodeModel(titleNo, episodeName, episodeThumb, episodeDate, episodeLink,
                         episodeLinkHash);
@@ -101,35 +112,37 @@ namespace Crawler.Crawler
                     // await _context.SaveChangesAsync();
 
                     // Console.WriteLine(episodeLinkHash);
-                    
                 }
             }
             else if (e.CrawledPage.Uri.AbsoluteUri.Contains("viewer"))
             {
-                var context = BrowsingContext.New(Configuration.Default);
-                var parser = context.GetService<IHtmlParser>();
-                var document = parser.ParseDocument(rawPageText);
-                var content = document.QuerySelectorAll(".viewer_img img");
+                var context      = BrowsingContext.New(Configuration.Default);
+                var parser       = context.GetService<IHtmlParser>();
+                var document     = parser.ParseDocument(rawPageText);
+                var content      = document.QuerySelectorAll(".viewer_img img");
                 var contentLinks = content.Select(cont => new Uri(cont.GetAttribute("data-url")).PathAndQuery).ToList();
                 // foreach (var cont in contentLinks)
                 // {
                 //     var linkData = new Uri(cont);
                 //     Console.WriteLine(linkData.PathAndQuery);
                 // }
-                var episodeLink = e.CrawledPage.Uri.AbsoluteUri;
+                var episodeLink     = e.CrawledPage.Uri.AbsoluteUri;
                 var epsiodeLinkHash = ComputeSha256Hash(episodeLink);
-                var contentJson = JsonSerializer.Serialize(contentLinks);
-                var pageModel = createPageModel(epsiodeLinkHash, contentJson);
-                var pageEntity = PageProfile.MapCreateModelToEntity(pageModel);
+                var contentJson     = JsonSerializer.Serialize(contentLinks);
+                var pageModel       = createPageModel(epsiodeLinkHash, contentJson);
+                var pageEntity      = PageProfile.MapCreateModelToEntity(pageModel);
                 // var _context = Program.ServiceProvider.GetService<ContentContext>();
                 var existingPage = _context.Pages.Where(p => p.Content == contentJson).ToList();
-                if (existingPage.Count == 0) { await _context.AddAsync(pageEntity); }
-                
+                if (existingPage.Count == 0)
+                {
+                    await _context.AddAsync(pageEntity);
+                }
+
                 // await _context.SaveChangesAsync();
             }
+
             _context.SaveChanges();
             Program.LogInfo(count.ToString());
-            
         }
 
         private static EpisodeCreateModel createEpisodeModel(string titleNo, string episodeName,

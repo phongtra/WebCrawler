@@ -29,10 +29,10 @@ namespace Crawler
             services.AddSingleton(Configuration);
             // services.AddTransient<ContentContext>();
             //Custom code
-            services.AddDbContext<ContentContext>(options =>
+            services.AddDbContextPool<ContentContext>(options =>
             {
                 options.UseSqlite(@"Data Source=D:/repos/WebCrawlerPrj/Crawler/DB/content.db;");
-            }, ServiceLifetime.Transient);
+            }, poolSize:200);
             services
                 .AddTransient<LaunchOptions>(provider => new LaunchOptions
                 {
@@ -43,7 +43,7 @@ namespace Crawler
             services.AddTransient<CrawlConfiguration>(provider => new CrawlConfiguration
                 {
                     MaxPagesToCrawl                    = 0,  //Max Crawl,
-                    MaxConcurrentThreads = 10,
+                    MaxConcurrentThreads = 20,
                     MinCrawlDelayPerDomainMilliSeconds = 3000 //Wait this many millisecs between requests
                 })
                 .AddTransient<IWebContentExtractor, WebContentExtractor>()
