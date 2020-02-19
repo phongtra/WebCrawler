@@ -44,7 +44,7 @@ namespace Crawler
                 {
                     MaxPagesToCrawl                    = 0,  //Max Crawl,
                     MaxConcurrentThreads = 20,
-                    MinCrawlDelayPerDomainMilliSeconds = 3000 //Wait this many millisecs between requests
+                    MinCrawlDelayPerDomainMilliSeconds = 300 //Wait this many millisecs between requests
                 })
                 .AddTransient<IWebContentExtractor, WebContentExtractor>()
                 .AddTransient<IPageRequester, PageRequester>()

@@ -38,19 +38,17 @@ namespace Crawler.Crawler
 
             crawler.PageCrawlCompleted += Crawler_PageCrawlCompleted; ; //Several events available...
 
-            var crawlResult = await crawler.CrawlAsync(new Uri("https://www.webtoons.com/en/romance/edith/list?title_no=1536"));
+            // var crawlResult = await crawler.CrawlAsync(new Uri("https://www.webtoons.com/en/romance/edith/list?title_no=1536"));
+            var crawlResult = await crawler.CrawlAsync(new Uri("https://www.webtoons.com/en/romance/"));
         }
 
         private static async void Crawler_PageCrawlCompleted(object sender, PageCrawlCompletedArgs e)
         {
             // Run application code
-            using (var scope = Program.ServiceProvider.CreateScope())
-            {
-                var _context = Program.ServiceProvider.GetService<ContentContext>();
+            using var scope = Program.ServiceProvider.CreateScope();
+            var _context = scope.ServiceProvider.GetService<ContentContext>();
 
-                await OnPageCrawlCompleted(e, _context);
-            }
-
+            await OnPageCrawlCompleted(e, _context);
         }
 
         private static async Task OnPageCrawlCompleted(PageCrawlCompletedArgs e, ContentContext _context)
