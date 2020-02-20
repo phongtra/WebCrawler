@@ -42,6 +42,7 @@ namespace Crawler
 
             services.AddTransient<CrawlConfiguration>(provider => new CrawlConfiguration
                 {
+                    // HttpRequestTimeoutInSeconds = 30,
                     MaxPagesToCrawl                    = 0,  //Max Crawl,
                     MaxConcurrentThreads = 20,
                     MinCrawlDelayPerDomainMilliSeconds = 300 //Wait this many millisecs between requests

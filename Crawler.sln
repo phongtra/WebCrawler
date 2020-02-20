@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComicAPIGateway", "ComicAPI
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReactServer", "ReactServer\ReactServer.csproj", "{2187FDE3-0B76-4E7A-B841-1E3F3FCF3823}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrawlerEngine", "CrawlerEngine\CrawlerEngine.csproj", "{AD355767-7F78-4C3B-ABE2-A4EDB5B2F5B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{2187FDE3-0B76-4E7A-B841-1E3F3FCF3823}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2187FDE3-0B76-4E7A-B841-1E3F3FCF3823}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2187FDE3-0B76-4E7A-B841-1E3F3FCF3823}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD355767-7F78-4C3B-ABE2-A4EDB5B2F5B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD355767-7F78-4C3B-ABE2-A4EDB5B2F5B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD355767-7F78-4C3B-ABE2-A4EDB5B2F5B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD355767-7F78-4C3B-ABE2-A4EDB5B2F5B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

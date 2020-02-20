@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -38,8 +40,8 @@ namespace Crawler.Crawler
 
             crawler.PageCrawlCompleted += Crawler_PageCrawlCompleted; ; //Several events available...
 
-            // var crawlResult = await crawler.CrawlAsync(new Uri("https://www.webtoons.com/en/romance/edith/list?title_no=1536"));
-            var crawlResult = await crawler.CrawlAsync(new Uri("https://www.webtoons.com/en/romance/"));
+            var crawlResult = await crawler.CrawlAsync(new Uri("https://www.webtoons.com/en/romance/edith/list?title_no=1536"));
+            // var crawlResult = await crawler.CrawlAsync(new Uri("https://www.webtoons.com/en/romance/"));
         }
 
         private static async void Crawler_PageCrawlCompleted(object sender, PageCrawlCompletedArgs e)
@@ -53,6 +55,19 @@ namespace Crawler.Crawler
 
         private static async Task OnPageCrawlCompleted(PageCrawlCompletedArgs e, ContentContext _context)
         {
+            if (e.CrawledPage.HttpRequestException           != null ||
+                e.CrawledPage.HttpResponseMessage.StatusCode != HttpStatusCode.OK)
+            {
+                Console.WriteLine("Crawl of page failed {0}", e.CrawledPage.Uri.AbsoluteUri);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(e.CrawledPage.Content.Text))
+            {
+                Console.WriteLine("Page had no content {0}", e.CrawledPage.Uri.AbsoluteUri);
+                return;
+            }
+
             count++;
             var httpStatus  = e.CrawledPage.HttpResponseMessage.StatusCode;
             var rawPageText = e.CrawledPage.Content.Text;
@@ -139,8 +154,9 @@ namespace Crawler.Crawler
                 // await _context.SaveChangesAsync();
             }
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             Program.LogInfo(count.ToString());
+
         }
 
         private static EpisodeCreateModel createEpisodeModel(string titleNo, string episodeName,
