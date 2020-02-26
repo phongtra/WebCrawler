@@ -1,0 +1,89 @@
+project:
+  namespace: '{Database.Name}'
+  directory: D:\repos\WebCrawlerPrj\CrawlerEngine.Abstraction
+database:
+  name: 
+  provider: Sqlite
+  connectionString: 'Data Source=D:\repos\WebCrawlerPrj\CrawlerEngine.Abstraction\1_Scheduler\DB\UriDB.db'
+  connectionName: ConnectionStrings:Generator
+  userSecretsId: f094a504-c5c8-408d-8e78-b7435293c6f7
+  tableNaming: Singular
+  tables: 
+  schemas: 
+data:
+  context:
+    name: '{Database.Name}Context'
+    baseClass: DbContext
+    propertyNaming: Plural
+    namespace: '{Project.Namespace}.Data'
+    directory: '{Project.Directory}\1_Scheduler\DB\Data'
+    document: false
+  entity:
+    baseClass: 
+    entityNaming: Singular
+    relationshipNaming: Plural
+    prefixWithSchemaName: false
+    namespace: '{Project.Namespace}.Data.Entities'
+    directory: '{Project.Directory}\1_Scheduler\DB\Data\Entities'
+    document: false
+  mapping:
+    namespace: '{Project.Namespace}.Data.Mapping'
+    directory: '{Project.Directory}\1_Scheduler\DB\Data\Mapping'
+    document: false
+  query:
+    generate: true
+    indexPrefix: By
+    uniquePrefix: GetBy
+    namespace: '{Project.Namespace}.Data.Queries'
+    directory: '{Project.Directory}\1_Scheduler\DB\Data\Queries'
+    document: false
+model:
+  shared:
+    namespace: '{Project.Namespace}.Domain.Models'
+    directory: '{Project.Directory}\1_Scheduler\DB\Domain\Models'
+    include: 
+    exclude: 
+  read:
+    generate: false
+    name: '{Entity.Name}ReadModel'
+    baseClass: 
+    include: 
+    exclude: 
+    namespace: 
+    directory: 
+    document: false
+  create:
+    generate: false
+    name: '{Entity.Name}CreateModel'
+    baseClass: 
+    include: 
+    exclude:
+      entities: []
+      properties: [Id]
+    namespace: 
+    directory: 
+    document: false
+  update:
+    generate: false
+    name: '{Entity.Name}UpdateModel'
+    baseClass: 
+    include: 
+    exclude: 
+    namespace: 
+    directory: 
+    document: false
+  mapper:
+    generate: false
+    name: '{Entity.Name}Profile'
+    baseClass: AutoMapper.Profile
+    namespace: '{Project.Namespace}.Domain.Mapping'
+    directory: '{Project.Directory}\1_Scheduler\DB\Domain\Mapping'
+    document: false
+  validator:
+    generate: false
+    name: '{Model.Name}Validator'
+    baseClass: AbstractValidator<{Model.Name}>
+    namespace: '{Project.Namespace}.Domain.Validation'
+    directory: '{Project.Directory}\1_Scheduler\DB\Domain\Validation'
+    document: false
+script: 
