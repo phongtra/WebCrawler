@@ -10,6 +10,7 @@ using AngleSharp;
 using AngleSharp.Html.Dom;
 using AngleSharp.Html.Parser;
 using CrawlerEngine._2_Downloader;
+using CrawlerEngine._3_PageProcessor;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -68,13 +69,18 @@ namespace CrawlerEngine.Abstraction._1_Scheduler
             // _getPagesTask3 = Task.Run(BackgroundTask, stoppingToken);
             // _getPagesTask4 = Task.Run(BackgroundTask, stoppingToken);
 
+            // int numberOfServiceThreads = 4;
+            // _getPagesTask1 = Task.WhenAll(
+            //     Enumerable
+            //         .Range(0, numberOfServiceThreads)
+            //         .Select(_ => BackgroundTask()));
+
             return Task.CompletedTask;
         }
 
         // private async Task BackgroundTask(CancellationToken stoppingToken)
         private async Task BackgroundTask()
         {
-            
                 // while (true)
                 while (!_stopping)
                 // while (!stoppingToken.IsCancellationRequested)
@@ -129,14 +135,7 @@ namespace CrawlerEngine.Abstraction._1_Scheduler
                 return;
             }
 
-            // Signal cancellation to the executing method
-            // _cancellationTokenSource.Cancel();
-
-            // Wait until the task completes or the stop token triggers, delay -1: wait infinite
-            // await Task.WhenAny(
-            //     tasks[0],
-            //     tasks[1],
-            //     Task.Delay(-1, stoppingToken));
+            // var tasksToWait = new List<Task>();
 
             await Task.WhenAny(
                 _getPagesTask1,
@@ -164,8 +163,12 @@ namespace CrawlerEngine.Abstraction._1_Scheduler
             //2. Download the page (IDownloader)
             var downloader = Services.GetService<IDownloader>();
             var method = new HttpMethod(pageToCrawl.Verb);
-            var requestUri = pageToCrawl.Uri;
-            var downloadedContent = await downloader.GetPage(new HttpRequestMessage(method, requestUri));
+            var requestUri = new Uri(pageToCrawl.Uri);
+            if (!(requestUri.Scheme.ToLower() == "http" || requestUri.Scheme.ToLower() == "https"))
+            {
+                return;
+            }
+            var downloadedContent = await downloader.GetPage(new HttpRequestMessage(method, pageToCrawl.Uri));
             pageToCrawl.DownloadedTime = DateTime.UtcNow.ToString(Tools.StrDateTimeFormat);
 
             //3. Process the page (IPageProcessor)
@@ -181,25 +184,29 @@ namespace CrawlerEngine.Abstraction._1_Scheduler
             var parser   = browsingContext.GetService<IHtmlParser>();
             var document = parser.ParseDocument(downloadedContent);
             // var document = await browsingContext.OpenAsync(downloadedContent);
+            GetAllLinksToDB(uriBucket, document);
+
+            GetPageContentToDB(uriBucket, document, requestUri);
+        }
+
+        private void GetPageContentToDB(IUriBucket<WaitingPage> uriBucket, IHtmlDocument document, Uri requestUri)
+        {
+            using var pageProcessor = Services.GetService<IPageProcessor>();
+            pageProcessor.ProcessPageContent(document, requestUri);
+        }
+
+        private static void GetAllLinksToDB(IUriBucket<WaitingPage> uriBucket, IHtmlDocument document)
+        {
             var links = document
                 .Links
                 .OfType<IHtmlAnchorElement>()
                 .Where(e => e.Href.StartsWith("https://www.webtoons.com"))
                 .Select(e => new Uri(e.Href));
-
+            
             foreach (var link in links.Where(item => item.Scheme.ToLower() == "http" || item.Scheme.ToLower() == "https"))
             {
-                uriBucket.Add(new WaitingPage{Uri = link.ToString()});
+                uriBucket.Add(new WaitingPage {Uri = link.ToString()});
             }
-
-            // DoPriorityUpDate();
-        }
-
-        private void DoPriorityUpDate(IUriBucket<WaitingPage> uriBucket)
-        {
-            // DateTime.ParseExact("2009-05-08 14:40:52,531", "yyyy-MM-dd HH:mm:ss,fff",
-            //     System.Globalization.CultureInfo.InvariantCulture);
-            
         }
     }
 }

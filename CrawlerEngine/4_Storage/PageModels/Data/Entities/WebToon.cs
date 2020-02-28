@@ -1,4 +1,4 @@
-namespace Crawler.Data.Entities
+namespace CrawlerEngine._4_Storage.PageModels.Data.Entities
 {
     public partial class WebToon
     {

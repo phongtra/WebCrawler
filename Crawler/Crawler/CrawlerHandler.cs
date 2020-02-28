@@ -71,6 +71,7 @@ namespace Crawler.Crawler
             count++;
             var httpStatus  = e.CrawledPage.HttpResponseMessage.StatusCode;
             var rawPageText = e.CrawledPage.Content.Text;
+
             if (e.CrawledPage.Uri.AbsoluteUri == "https://www.webtoons.com/en/dailySchedule")
             {
                 var context    = BrowsingContext.New(Configuration.Default);

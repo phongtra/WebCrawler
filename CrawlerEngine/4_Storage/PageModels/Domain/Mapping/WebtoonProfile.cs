@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Crawler.Data.Entities;
-using Crawler.Domain.Models;
+﻿using Crawler.Domain.Models;
+using CrawlerEngine._4_Storage.PageModels.Data.Entities;
 
-namespace Crawler.Domain.Mapping
+namespace CrawlerEngine._4_Storage.PageModels.Domain.Mapping
 {
     public partial class WebtoonProfile
     {

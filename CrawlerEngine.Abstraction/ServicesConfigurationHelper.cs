@@ -3,8 +3,10 @@ using System.Text;
 using System.Threading.Tasks;
 using AngleSharp;
 using CrawlerEngine._2_Downloader;
+using CrawlerEngine._3_PageProcessor;
 using CrawlerEngine.Abstraction._1_Scheduler;
 using CrawlerEngine.Abstraction._2_Downloader;
+using CrawlerEngine.Abstraction._3_PageProcessor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -42,6 +44,8 @@ namespace CrawlerEngine.Abstraction
             }, 2);
 
             // services.AddHostedService<PrintInfoToConsoleService>();
+
+            services.AddTransient<IPageProcessor, DefaultPageProcessor>();
         }
 
         public static void ConfigureDefaultDownloaderServices(HostBuilderContext hostContext, IServiceCollection services)

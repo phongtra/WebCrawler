@@ -1,7 +1,7 @@
-using Crawler.Data.Entities;
+using CrawlerEngine._4_Storage.PageModels.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Crawler.Data.Mapping
+namespace CrawlerEngine._4_Storage.PageModels.Data.Mapping
 {
     public partial class WebToonMap
         : IEntityTypeConfiguration<WebToon>

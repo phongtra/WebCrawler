@@ -109,7 +109,13 @@ namespace CrawlerEngine.Abstraction._1_Scheduler
         {
             var waitingPages = GetWaitingPages();
 
-            return waitingPages.FirstOrDefault();
+            var ret = waitingPages.FirstOrDefault();
+            if (ret == null) return null;
+            
+            // Push this out, in case of multi threading, should not get 1 page same time
+            Remove(ret);
+            return ret;
+
         }
 
         public int Count

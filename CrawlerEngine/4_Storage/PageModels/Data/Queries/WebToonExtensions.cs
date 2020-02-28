@@ -1,9 +1,9 @@
 using System.Linq;
 using System.Threading.Tasks;
-using Crawler.Data.Entities;
+using CrawlerEngine._4_Storage.PageModels.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Crawler.Data.Queries
+namespace CrawlerEngine._4_Storage.PageModels.Data.Queries
 {
     public static partial class WebToonExtensions
     {

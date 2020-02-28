@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using CrawlerEngine._3_PageProcessor;
 using CrawlerEngine._4_Storage.PageModels.Data;
 using CrawlerEngine.Abstraction;
 using CrawlerEngine.Abstraction._1_Scheduler;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using UriDB.Data.Entities;
@@ -36,13 +38,17 @@ namespace CrawlerEngine
                     services.AddOptions();
                     ServicesConfigurationHelper.ConfigureDefaultServices(hostContext, services);
                     services.AddHostedService(serviceProvider => serviceProvider.GetService<ISchedulerService>());
-                    services.AddDbContextPool<ContentContext>((serviceProvider, options) =>
+                    services.AddDbContext<ContentContext>((serviceProvider, options) =>
                     {
-                        
                         options.UseSqlite(hostContext.Configuration.GetSection("AppConfig")["ConnectionString"]);
-                    }, 128);
+                        // options.UseSqlite(@"Data Source=./4_Storage/PageModels/DB/content.db;");
+                    }, ServiceLifetime.Transient);
+
+
 
                     ServicesConfigurationHelper.ConfigureDefaultDownloaderServices(hostContext, services);
+
+                    services.AddTransient<IPageProcessor, PageProcessor>();
                 })
                 .ConfigureLogging((hostingContext, logging) =>
                 {
@@ -61,7 +67,8 @@ namespace CrawlerEngine
 
                 using (var uriBucket = host.Services.GetService<IUriBucket<WaitingPage>>())
                 {
-                    uriBucket.Add(new WaitingPage {Uri = "https://www.webtoons.com"});
+                    // uriBucket.Add(new WaitingPage {Uri = "https://www.webtoons.com"});
+                    uriBucket.Add(new WaitingPage {Uri = "https://www.webtoons.com/en/dailySchedule"});
                 }
 
 
