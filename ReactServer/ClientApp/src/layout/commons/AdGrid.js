@@ -1,7 +1,7 @@
-import React, { createRef } from "react";
-import { Grid, Responsive, Segment, Sticky, Ref } from "semantic-ui-react";
+import React, { createRef } from 'react';
+import { Grid, Responsive, Segment, Sticky, Ref } from 'semantic-ui-react';
 
-const AdGrid = ({ children }) => {
+const AdGrid = ({ children, nonStick }) => {
   const adRef1 = createRef();
   const adRef2 = createRef();
   return (
@@ -9,9 +9,13 @@ const AdGrid = ({ children }) => {
       <Ref innerRef={adRef1}>
         <Grid.Column width={1}>
           <Responsive minWidth={1024}>
-            <Sticky context={adRef1}>
+            {nonStick ? (
               <Segment></Segment>
-            </Sticky>
+            ) : (
+              <Sticky context={adRef1}>
+                <Segment></Segment>
+              </Sticky>
+            )}
           </Responsive>
         </Grid.Column>
       </Ref>
@@ -25,9 +29,13 @@ const AdGrid = ({ children }) => {
       <Ref innerRef={adRef2}>
         <Grid.Column width={1}>
           <Responsive minWidth={1024}>
-            <Sticky context={adRef2}>
+            {nonStick ? (
               <Segment></Segment>
-            </Sticky>
+            ) : (
+              <Sticky context={adRef2}>
+                <Segment></Segment>
+              </Sticky>
+            )}
           </Responsive>
         </Grid.Column>
       </Ref>
