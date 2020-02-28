@@ -9,7 +9,7 @@ namespace CrawlerEngine.Abstraction
     {
         public static void SetMultiThread()
         {
-            ThreadPool.SetMinThreads(256, 256);
+            // ThreadPool.SetMinThreads(256, 256);
         }
     }
 }

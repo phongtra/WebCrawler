@@ -39,17 +39,9 @@ namespace CrawlerEngine.Abstraction
             services.AddDbContextPool<UriDBContext>(options =>
             {
                 options.UseSqlite(@"Data Source=./1_Scheduler/DB/UriDB.db;");
-            }, 128);
+            }, 2);
 
-            // services.AddSingleton<ObjectPool<PooledObjectWrapper<UriDBContext>>>(provider =>
-            // {
-            //     return new ObjectPool<PooledObjectWrapper<UriDBContext>>(25,() => 
-            //         new PooledObjectWrapper<UriDBContext>(provider.GetService<UriDBContext>())
-            //         {
-            //             OnReleaseResources = uriDBContext => {},
-            //             OnResetState       = uriDBContext => {}
-            //         });
-            // });
+            // services.AddHostedService<PrintInfoToConsoleService>();
         }
 
         public static void ConfigureDefaultDownloaderServices(HostBuilderContext hostContext, IServiceCollection services)

@@ -14,7 +14,9 @@ namespace CrawlerEngine.Abstraction._1_Scheduler
     public class DefaultWaitingUriBucket : IUriBucket<WaitingPage>, IDisposable
     {
         private readonly IServiceScope _scope;
-        private readonly UriDBContext dbContext;
+        private UriDBContext dbContext;
+
+        
 
         public DefaultWaitingUriBucket(IServiceProvider services)
         {
@@ -33,7 +35,7 @@ namespace CrawlerEngine.Abstraction._1_Scheduler
             return this.GetWaitingPages().GetEnumerator();
         }
 
-        public async void Add(WaitingPage item)
+        public void Add(WaitingPage item)
         {
             // UriToProcess.Enqueue(item);
 
@@ -58,14 +60,32 @@ namespace CrawlerEngine.Abstraction._1_Scheduler
                 var pageToFind = FindPageByUriHash(item.UriHash);
                 if (pageToFind == null) // new item
                 {
-                    await dbContext.AddAsync(item);
+                    dbContext.Add(item);
                 }
-                else // update already in DB
+                else // page already in DB
                 {
                     pageToFind.Priority = item.Priority;
                     pageToFind.RequestTime = item.RequestTime;
                     pageToFind.Parameters = item.Parameters;
-                    pageToFind.NeedUpdate = item.NeedUpdate;
+                    //Decide if we will update this page or not
+                    if (pageToFind.NeedUpdate == null || pageToFind.NeedUpdate == 0)
+                    {
+                        if (DateTime.TryParse(pageToFind.DownloadedTime, out var downloadedTime))
+                        {
+                            if (DateTime.UtcNow - downloadedTime >= TimeSpan.FromDays(1))
+                            {
+                                pageToFind.NeedUpdate = 1;
+                            }
+                            else
+                            {
+                                pageToFind.NeedUpdate = 0;
+                            }
+                        }
+                        else
+                        {
+                            pageToFind.NeedUpdate = 1;
+                        }
+                    }
                     dbContext.Update(pageToFind);
                 }
             }
@@ -73,14 +93,16 @@ namespace CrawlerEngine.Abstraction._1_Scheduler
             {
                 dbContext.Update(item);
             }
-            await dbContext.SaveChangesAsync();
+
+            dbContext.SaveChanges();
+            // await dbContext.SaveChangesAsync();
         }
 
-        public async void Remove(WaitingPage item)
+        public void Remove(WaitingPage item)
         {
             item.NeedUpdate = 0;
             dbContext.Update(item);//Also update any changing in item
-            await dbContext.SaveChangesAsync();
+            dbContext.SaveChanges(); //.SaveChangesAsync();
         }
 
         public WaitingPage GetNextUri()
@@ -106,6 +128,7 @@ namespace CrawlerEngine.Abstraction._1_Scheduler
         public void Dispose()
         {
             _scope?.Dispose();
+            dbContext = null;
         }
 
         #region Repository functions

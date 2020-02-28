@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using CrawlerEngine._4_Storage.PageModels.Data;
 using CrawlerEngine.Abstraction;
@@ -39,7 +40,7 @@ namespace CrawlerEngine
                     {
                         
                         options.UseSqlite(hostContext.Configuration.GetSection("AppConfig")["ConnectionString"]);
-                    }, poolSize:200);
+                    }, 128);
 
                     ServicesConfigurationHelper.ConfigureDefaultDownloaderServices(hostContext, services);
                 })
@@ -48,25 +49,36 @@ namespace CrawlerEngine
                     logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
                     logging.AddConsole();
                 });
+                // .UseConsoleLifetime();
 
             using var host = builder.Build();
 
-            Console.WriteLine("Application Starting!");
-            await host.StartAsync();
-            Console.WriteLine("Application Started! Press <enter> to stop.");
-
-            using (var uriBucket = host.Services.GetService<IUriBucket<WaitingPage>>())
+            try
             {
-                uriBucket.Add(new WaitingPage {Uri = "https://google.com/"});
+                Console.WriteLine("Application Starting!");
+                await host.StartAsync();
+                Console.WriteLine("Application Started! Press <enter> to stop.");
+
+                using (var uriBucket = host.Services.GetService<IUriBucket<WaitingPage>>())
+                {
+                    uriBucket.Add(new WaitingPage {Uri = "https://www.webtoons.com"});
+                }
+
+
+                Console.ReadLine();
+
+
+                Console.WriteLine("Application Stopping!");
+                await host.StopAsync();
+                Console.WriteLine("Main thread Stopped!");
             }
-
-
-            Console.ReadLine();
-
-
-            Console.WriteLine("Application Stopping!");
-            await host.StopAsync();
-            Console.WriteLine("Main thread Stopped!");
+            catch (Exception e)
+            {
+                var trace = new StackTrace(e, true);
+                var line = trace.GetFrame(trace.FrameCount -1).GetFileLineNumber();
+                Console.WriteLine("Exception at line " + line );
+                Console.WriteLine(e);
+            }
 
             // await builder.RunConsoleAsync();
         }
