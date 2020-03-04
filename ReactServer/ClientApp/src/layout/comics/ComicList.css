@@ -1,0 +1,4 @@
+.ui.card {
+  flex: 1; /* Shrink and grow according to available height */
+  flex-basis: 0;
+}

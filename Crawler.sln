@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crawler", "Crawler\Crawler.csproj", "{2EE84AF0-2ABA-41D6-9EBA-6E2947AB7A17}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrawlerDisplayAPI", "CrawlerDisplayAPI\CrawlerDisplayAPI.csproj", "{0C8CCAEC-995F-4815-9B39-EB10CF89A0BF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComicAPIGateway", "ComicAPIGateway\ComicAPIGateway.csproj", "{F6C48566-D4EB-48F2-89B0-701FD5559B04}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReactServer", "ReactServer\ReactServer.csproj", "{2187FDE3-0B76-4E7A-B841-1E3F3FCF3823}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrawlerEngine.Core", "CrawlerEngine.Core\CrawlerEngine.Core.csproj", "{26FCF46F-AA3F-4D1A-ABBA-23386B8C5D73}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrawlerEngine", "CrawlerEngine\CrawlerEngine.csproj", "{65BC34FA-D23E-493B-9F87-D9E55FFBD356}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2EE84AF0-2ABA-41D6-9EBA-6E2947AB7A17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EE84AF0-2ABA-41D6-9EBA-6E2947AB7A17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EE84AF0-2ABA-41D6-9EBA-6E2947AB7A17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EE84AF0-2ABA-41D6-9EBA-6E2947AB7A17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C8CCAEC-995F-4815-9B39-EB10CF89A0BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C8CCAEC-995F-4815-9B39-EB10CF89A0BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C8CCAEC-995F-4815-9B39-EB10CF89A0BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C8CCAEC-995F-4815-9B39-EB10CF89A0BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6C48566-D4EB-48F2-89B0-701FD5559B04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6C48566-D4EB-48F2-89B0-701FD5559B04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6C48566-D4EB-48F2-89B0-701FD5559B04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6C48566-D4EB-48F2-89B0-701FD5559B04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2187FDE3-0B76-4E7A-B841-1E3F3FCF3823}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2187FDE3-0B76-4E7A-B841-1E3F3FCF3823}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2187FDE3-0B76-4E7A-B841-1E3F3FCF3823}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2187FDE3-0B76-4E7A-B841-1E3F3FCF3823}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26FCF46F-AA3F-4D1A-ABBA-23386B8C5D73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26FCF46F-AA3F-4D1A-ABBA-23386B8C5D73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26FCF46F-AA3F-4D1A-ABBA-23386B8C5D73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26FCF46F-AA3F-4D1A-ABBA-23386B8C5D73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65BC34FA-D23E-493B-9F87-D9E55FFBD356}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65BC34FA-D23E-493B-9F87-D9E55FFBD356}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65BC34FA-D23E-493B-9F87-D9E55FFBD356}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65BC34FA-D23E-493B-9F87-D9E55FFBD356}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {592C440B-953E-4BF4-AA53-C86F2CCD092B}
+	EndGlobalSection
+EndGlobal
